@@ -1,9 +1,9 @@
 # RimWorld Command Line Mod Release Tool
-### for your sanity, from Jecrell
+### for your sanity
 
-##Current Status: Not User Friendly
+## Current Status: Not User Friendly
 
-##What does this program do?
+## What does this program do?
 This program does the following.
 1. Replaces the target mod directory with your unaltered mod workspace directory.
    -> Does not include /Source/ folder and other excluded files (see Program.cs for info)
@@ -28,7 +28,7 @@ This program does the following.
 	-> Zips will exclude PublishedId.txt and other exceptions (see Program.cs for details)
 
 
-##How to use this command line:
+## How to use this command line:
 <<Make sure you create a workspace folder for your mod outside of the RimWorld/Mods directory. This will be your mod workspace where you can keep your source code excluded from your published mod.>>
 1. Place this program and Octokit.dll in your workspace directory.
 2. Pass the target mod directory as your argument on the command line.
