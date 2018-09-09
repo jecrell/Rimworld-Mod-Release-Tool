@@ -13,12 +13,15 @@ This program does the following.
 5. Asks user for update description.
 6. Automatically generates version number based on date and RimWorld version (RimWorld Version.Days since initial publish date) -> (B19.668).
 7. Automatically finds GitHub link based on the mod's name by searching GitHub's repositories.
+
 ((The following steps are skipped if the URLs are already stored))
 8. Creates Discord link from user input. (stores in <ModWorkspaceDir>/About/DiscordURL.txt)
 9. Creates Patreon link from user input. (stores in <ModWorkspaceDir>/About/PatreonURL.txt)
 10. Creates Ludeon link from user input. (stores in <ModWorkspaceDir>/About/LudeonURL.txt)
 11. Creates Discord webhook link from user input. (stores in <ModWorkspaceDir>/Source/DiscordWebhookToken)
+	
 ((End data input))
+
 12. Asks user if they want to publish a commit to GitHub.
 13. Asks user if they want to publish a release to GitHub.
 	-> Asks user for credentials (username and pw)
