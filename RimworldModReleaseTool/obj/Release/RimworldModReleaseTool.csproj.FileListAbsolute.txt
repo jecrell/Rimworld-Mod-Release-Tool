@@ -1,0 +1,15 @@
+D:\Code Projects\DotNet\RimworldModReleaseTool\RimworldModReleaseTool\bin\Release\RimworldModReleaseTool.exe
+D:\Code Projects\DotNet\RimworldModReleaseTool\RimworldModReleaseTool\bin\Release\RimworldModReleaseTool.pdb
+D:\Code Projects\DotNet\RimworldModReleaseTool\RimworldModReleaseTool\bin\Release\System.IO.Compression.FileSystem.dll
+D:\Code Projects\DotNet\RimworldModReleaseTool\RimworldModReleaseTool\bin\Release\System.IO.Compression.ZipFile.dll
+D:\Code Projects\DotNet\RimworldModReleaseTool\RimworldModReleaseTool\obj\Release\RimworldModReleaseTool.csprojResolveAssemblyReference.cache
+D:\Code Projects\DotNet\RimworldModReleaseTool\RimworldModReleaseTool\obj\Release\RimworldModReleaseTool.csproj.CoreCompileInputs.cache
+D:\Code Projects\DotNet\RimworldModReleaseTool\RimworldModReleaseTool\obj\Release\RimworldModReleaseTool.exe
+D:\Code Projects\DotNet\RimworldModReleaseTool\RimworldModReleaseTool\obj\Release\RimworldModReleaseTool.pdb
+C:\Users\mattw\Downloads\RimworldModReleaseTool\RimworldModReleaseTool\RimworldModReleaseTool\obj\Release\RimworldModReleaseTool.csprojResolveAssemblyReference.cache
+C:\Users\mattw\Downloads\RimworldModReleaseTool\RimworldModReleaseTool\RimworldModReleaseTool\obj\Release\RimworldModReleaseTool.exe
+C:\Users\mattw\Downloads\RimworldModReleaseTool\RimworldModReleaseTool\RimworldModReleaseTool\obj\Release\RimworldModReleaseTool.pdb
+C:\Users\mattw\Downloads\RimworldModReleaseTool\RimworldModReleaseTool\RimworldModReleaseTool\bin\Release\RimworldModReleaseTool.exe
+C:\Users\mattw\Downloads\RimworldModReleaseTool\RimworldModReleaseTool\RimworldModReleaseTool\bin\Release\RimworldModReleaseTool.pdb
+C:\Users\mattw\Downloads\RimworldModReleaseTool\RimworldModReleaseTool\RimworldModReleaseTool\bin\Release\System.IO.Compression.FileSystem.dll
+C:\Users\mattw\Downloads\RimworldModReleaseTool\RimworldModReleaseTool\RimworldModReleaseTool\bin\Release\System.IO.Compression.ZipFile.dll
