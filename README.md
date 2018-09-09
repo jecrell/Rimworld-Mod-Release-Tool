@@ -8,7 +8,7 @@ This program does the following.
 1. Replaces the target mod directory with your unaltered mod workspace directory.
    -> Does not include /Source/ folder and other excluded files (see Program.cs for info)
 2. Detects running RimWorld process. If it's on, the program asks for permission to restart it for the user.
-3. Asks user if they want to pubilsh the mod.
+3. Asks user if they want to publish the mod.
 4. Asks user for update title.
 5. Asks user for update description.
 6. Automatically generates version number based on date and RimWorld version (RimWorld Version.Days since initial publish date) -> (B19.668).
