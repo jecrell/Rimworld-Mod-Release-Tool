@@ -23,3 +23,12 @@ C:\Users\mattw\Downloads\Unsorted\RimworldModReleaseTool\RimworldModReleaseTool\
 C:\Users\mattw\Downloads\Unsorted\RimworldModReleaseTool\RimworldModReleaseTool\RimworldModReleaseTool\obj\Debug\RimworldModReleaseTool.csproj.CopyComplete
 C:\Users\mattw\Downloads\Unsorted\RimworldModReleaseTool\RimworldModReleaseTool\RimworldModReleaseTool\bin\Debug\Octokit.dll
 C:\Users\mattw\Downloads\Unsorted\RimworldModReleaseTool\RimworldModReleaseTool\RimworldModReleaseTool\bin\Debug\Octokit.xml
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\ModsWorkspace\RimWorldModReleaseTool\RimworldModReleaseTool\bin\Debug\RimworldModReleaseTool.exe
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\ModsWorkspace\RimWorldModReleaseTool\RimworldModReleaseTool\bin\Debug\RimworldModReleaseTool.pdb
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\ModsWorkspace\RimWorldModReleaseTool\RimworldModReleaseTool\bin\Debug\System.IO.Compression.FileSystem.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\ModsWorkspace\RimWorldModReleaseTool\RimworldModReleaseTool\obj\Debug\RimworldModReleaseTool.csprojAssemblyReference.cache
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\ModsWorkspace\RimWorldModReleaseTool\RimworldModReleaseTool\obj\Debug\RimworldModReleaseTool.csproj.CoreCompileInputs.cache
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\ModsWorkspace\RimWorldModReleaseTool\RimworldModReleaseTool\obj\Debug\RimworldModReleaseTool.csproj.CopyComplete
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\ModsWorkspace\RimWorldModReleaseTool\RimworldModReleaseTool\obj\Debug\RimworldModReleaseTool.exe
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\ModsWorkspace\RimWorldModReleaseTool\RimworldModReleaseTool\obj\Debug\RimworldModReleaseTool.pdb
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\ModsWorkspace\RimWorldModReleaseTool\RimworldModReleaseTool\bin\Debug\Octokit.dll

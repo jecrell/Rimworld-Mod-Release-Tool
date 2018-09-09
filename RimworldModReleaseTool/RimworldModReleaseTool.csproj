@@ -33,7 +33,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Octokit, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\..\..\..\octokit.net-0.31.0\octokit.net-0.31.0\Octokit\bin\Debug\net45\Octokit.dll</HintPath>
+      <HintPath>..\Dependencies\Octokit.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

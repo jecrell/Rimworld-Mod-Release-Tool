@@ -405,7 +405,9 @@ namespace RimworldModReleaseTool
 
     internal class ModUpdateInfo
     {
-        public static readonly string RimWorldVer = "B19"; 
+        private static readonly string RimWorldVer = "B19"; 
+        private static readonly DateTime FirstPublishDate = new DateTime(2016, 12, 11);
+
         
         private string path;
         private string team;
@@ -450,7 +452,7 @@ namespace RimworldModReleaseTool
             publishDateString = $"{publishDate:MM-dd-yyyy}";
 
             ///// Autoset a version number
-            var daysSinceStarted = (DateTime.Now - new DateTime(2016, 12, 11)).Days;
+            var daysSinceStarted = (DateTime.Now - FirstPublishDate).Days;
             version = RimWorldVer + '.' + daysSinceStarted;
             
             ///// Get the repo's preview image

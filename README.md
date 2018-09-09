@@ -19,11 +19,12 @@ This program does the following.
 10. Creates Ludeon link from user input. (stores in <ModWorkspaceDir>/About/LudeonURL.txt)
 11. Creates Discord webhook link from user input. (stores in <ModWorkspaceDir>/Source/DiscordWebhookToken)
 ((End data input))
-12. Automatically generates Steam and BBCode versions of the update text and opens Notepad.exe.
-13. Asks user if they want to publish a commit to GitHub.
-14. Asks user if they want to publish a release to GitHub.
+12. Asks user if they want to publish a commit to GitHub.
+13. Asks user if they want to publish a release to GitHub.
 	-> Asks user for credentials (username and pw)
-15. Asks user if they want to zip up their RiMWorld mod.
+14. Sends JSON post to Discord webhooks with mod preview image followed by mod description.
+15. Automatically generates Steam and BBCode versions of the update text and opens Notepad.exe.
+16. Asks user if they want to zip up their RiMWorld mod.
 	-> Zips will exclude PublishedId.txt and other exceptions (see Program.cs for details)
 
 
