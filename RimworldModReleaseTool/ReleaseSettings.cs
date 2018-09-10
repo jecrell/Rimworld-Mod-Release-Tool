@@ -9,6 +9,8 @@ namespace RimworldModReleaseTool
         public bool HandleGitHub { get; set; }
         [XmlElement(ElementName="handleLudeon")]
         public bool HandleLudeon { get; set; }
+        [XmlElement(ElementName="handleSteam")]
+        public bool HandleSteam { get; set; }
         [XmlElement(ElementName="handleDiscord")]
         public bool HandleDiscord { get; set; }
         [XmlElement(ElementName="handleDiscordWebhook")]

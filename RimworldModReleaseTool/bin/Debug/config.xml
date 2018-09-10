@@ -2,9 +2,10 @@
 <ReleaseSettings>
     <handleGitHub>true</handleGitHub>
     <handleLudeon>true</handleLudeon>
-    <handleDiscord>false</handleDiscord>
-    <handleDiscordWebhook>false</handleDiscordWebhook>
-    <handlePatreon>false</handlePatreon>
+    <handleSteam>true</handleSteam>
+    <handleDiscord>true</handleDiscord>
+    <handleDiscordWebhook>true</handleDiscordWebhook>
+    <handlePatreon>true</handlePatreon>
     <showCopyableNotes>true</showCopyableNotes>
     <copyableNotesProgram>notepad.exe</copyableNotesProgram>
     <filteredWhenCopied>.git, \\source, .gitattributes, .gitignore, .idea, .vs, .exe, Octokit</filteredWhenCopied>

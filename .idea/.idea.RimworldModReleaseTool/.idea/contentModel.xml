@@ -8,9 +8,12 @@
         <e p="config.xml" t="Include" />
         <e p="configDefaults.xml" t="Include" />
         <e p="GitHubUtility.cs" t="Include" />
+        <e p="LudeonUtility.cs" t="Include" />
+        <e p="MiscUtility.cs" t="Include" />
         <e p="ModUpdateInfo.cs" t="Include" />
         <e p="obj" t="ExcludeRecursive" />
         <e p="packages.config" t="Include" />
+        <e p="PatreonUtility.cs" t="Include" />
         <e p="Program.cs" t="Include" />
         <e p="Properties" t="Include">
           <e p="AssemblyInfo.cs" t="Include" />

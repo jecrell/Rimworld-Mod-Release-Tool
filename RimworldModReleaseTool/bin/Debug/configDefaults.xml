@@ -2,6 +2,7 @@
 <ReleaseSettings>
     <handleGitHub>true</handleGitHub>
     <handleLudeon>true</handleLudeon>
+    <handleSteam>true</handleSteam>
     <handleDiscord>false</handleDiscord>
     <handleDiscordWebhook>false</handleDiscordWebhook>
     <handlePatreon>false</handlePatreon>

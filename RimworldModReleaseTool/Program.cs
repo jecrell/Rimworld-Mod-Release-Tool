@@ -29,13 +29,11 @@ namespace RimworldModReleaseTool
         {
             var xml = new XmlDocument();
             xml.Load("config.xml");
-            Console.WriteLine(xml.InnerXml);
             settings = null;
             using(TextReader sr = new StringReader(xml.InnerXml))
             {
                 var serializer = new XmlSerializer(typeof(ReleaseSettings));
                 settings =  (ReleaseSettings)serializer.Deserialize(sr);
-                Console.WriteLine(settings.GithubProductHeaderValue);
             }
             
             if (settings == null)
@@ -57,19 +55,19 @@ namespace RimworldModReleaseTool
             var curDirName = workspacePath.Split(Path.DirectorySeparatorChar).Last();
 
             
-            //////////////////////////////
-            /// Automating my Dev Process
-            /////////////////////////////
+            ////////////////////////////////////////
+            /// Automating the RimWorld Dev Process
+            ////////////////////////////////////////
             
             //////////////////////////////
-            /// General
+            /// Testing or Releasing
             //1. Make seperate directory for release.
                 if (!DeleteExistingDirectoriesIfAny(releasePath, workspacePath)) goto Abort;
-                CopyFilesAndDirectories(workspacePath, Regex.Replace(settings.FilteredWhenCopied, @"\s+", "").Split(','), releasePath);
+                CopyFilesAndDirectories(workspacePath, settings.FilteredWhenCopied.ClearWhiteSpace().Split(','), releasePath);
             //2. Restart RimWorld for testing.
                 RestartRimWorldRequest();
             
-            if (!UserAccepts("\nPublish update for " + curDirName + "?"))
+            if (!UserAccepts("\nPublish update for " + curDirName + "? (Y/N) :"))
                 goto Abort;
             ModUpdateInfo updateInfo = new ModUpdateInfo(settings, workspacePath);
             
@@ -81,13 +79,40 @@ namespace RimworldModReleaseTool
             //2. Update Discord
             SendJSONToDiscordWebhook(settings, updateInfo);
             //3. Update Patreon
-            OutputUpdateReport(settings, updateInfo);
-            ZipFilesRequest(releasePath, updateInfo, Regex.Replace(settings.FilteredWhenZipped, @"\s+", "").Split(','));
+            //PatreonPostRequest(settings, updateInfo); //TODO
+            ZipFilesRequest(releasePath, updateInfo, settings.FilteredWhenZipped.ClearWhiteSpace().Split(','));
             //4. Update Ludeon
+            //LudeonPostRequest(settings, updateInfo); //TODO
             //5. Update Steam
+            //SteamUpdateRequest(settings, updateInfo); //TODO
+            OutputUpdateReport(settings, updateInfo);            
             
             Abort:
             Console.WriteLine("\nFin."); // Any key to exit...");
+        }
+
+        private static void PatreonPostRequest(ReleaseSettings settings, ModUpdateInfo updateInfo)
+        {
+            if (Program.UserAccepts("Update Patreon post now? (Y/N): "))
+            {
+                PatreonUtility.UpdatePost(settings, updateInfo);
+            }
+        }
+
+        private static void SteamUpdateRequest(ReleaseSettings settings, ModUpdateInfo updateInfo)
+        {
+            if (Program.UserAccepts("Update Ludeon forum thread front page now? (Y/N): "))
+            {
+                LudeonUtility.UpdatePost(settings, updateInfo);
+            }
+        }
+
+        private static void LudeonPostRequest(ReleaseSettings settings, ModUpdateInfo updateInfo)
+        {
+            if (settings.HandleLudeon && Program.UserAccepts("Update Ludeon forum thread front page now? (Y/N): "))
+            {
+                LudeonUtility.UpdatePost(settings, updateInfo);
+            }
         }
 
         private static string ResolvePathForWorkspace(string[] args)
@@ -106,10 +131,15 @@ namespace RimworldModReleaseTool
             }
             if (result == "")
             {
-                Console.WriteLine("Expected arguments passed. None received.\n" +
-                                  "Unable to resolve path of mod workspace.\n" +
-                                  "Please enter mod workspace directory path: ");
-                result = Console.ReadLine();   
+                WorkspacePath:
+                Console.WriteLine("Please enter mod workspace directory path OR Press ENTER to exit: ");
+                result = Console.ReadLine();
+                if (result == "") {Console.WriteLine("Exiting..."); Environment.Exit(0);}
+                if (!Directory.Exists(result))
+                {
+                    Console.WriteLine("Invalid directory path.");
+                    goto WorkspacePath;    
+                }
             }
             return result;
         }
@@ -128,10 +158,15 @@ namespace RimworldModReleaseTool
             }
             if (result == "")
             {
-                Console.WriteLine("Expected arguments passed. None received.\n" +
-                                  "Unable to resolve path of mod release directory.\n" +
-                                  "Please enter mod release directory path: ");
-                result = Console.ReadLine();   
+                ReleasePath:
+                Console.WriteLine("Please enter mod release directory path OR Press ENTER to exit: ");
+                result = Console.ReadLine();
+                if (result == "") {Console.WriteLine("Exiting..."); Environment.Exit(0);}
+                if (!Directory.Exists(result))
+                {
+                    Console.WriteLine("Invalid directory path.");
+                    goto ReleasePath;
+                }
             }
             return result;
         }
@@ -230,13 +265,13 @@ namespace RimworldModReleaseTool
 
         }
 
-
         private static void GitHubReleaseRequest(ReleaseSettings settings, ModUpdateInfo updateInfo)
         {
-            if (settings.HandleGitHub && UserAccepts($"Make release on github? (Y/N) "))
+            
+            if (settings.HandleGitHub && UserAccepts($"\nMake release on github? (Y/N) "))
             {
-                var repo = GitHubUtility.GetGithubRepository(settings, updateInfo.Name);
-                var task = Task.Run(async () => await GitHubUtility.CreateRelease(repo, version: updateInfo.Version, name: updateInfo.Title, body: updateInfo.Description));
+                var repo = GitHubUtility.GetGithubRepository(updateInfo, settings, updateInfo.GitRepoName, updateInfo.GitRepoAuthor);
+                var task = Task.Run(async () => await GitHubUtility.CreateRelease(updateInfo, repo, updateInfo.Version, updateInfo.Title, updateInfo.Description));
                 task.Wait();
                 var result = task.Result;
                 Console.WriteLine("Created release id {0}", result.Id);
@@ -245,12 +280,11 @@ namespace RimworldModReleaseTool
 
         private static void GitHubCommitRequest(ReleaseSettings settings, ModUpdateInfo updateInfo)
         {
-            if (settings.HandleGitHub && UserAccepts($"Push to github with commit? (Y/N) "))
+            if (settings.HandleGitHub && UserAccepts($"\nPush to github with commit? (Y/N) "))
             {
-                var repo = GitHubUtility.GetGithubRepository(settings, updateInfo.Name);
-                GitHubUtility.RunGitProcessWithArgs(@"add -A");
-                GitHubUtility.RunGitProcessWithArgs(@"commit " + updateInfo.Description);
-                GitHubUtility.RunGitProcessWithArgs(@"push origin master");
+                GitHubUtility.RunGitProcessWithArgs(updateInfo.Path, @"add -A");
+                GitHubUtility.RunGitProcessWithArgs(updateInfo.Path, @"commit " + updateInfo.Description);
+                GitHubUtility.RunGitProcessWithArgs(updateInfo.Path, @"push origin master");
             }
         }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -11,20 +12,21 @@ namespace RimworldModReleaseTool
     {
         public static readonly string ClientToken = "RimworldModReleaseTool";
         
-        public static Repository GetGithubRepository(ReleaseSettings settings, string repoName)
+        public static Repository GetGithubRepository(ModUpdateInfo info, ReleaseSettings settings, string repoName, string repoAuthor ="")
         {
-            var task = Task.Run(async () => await GitHubUtility.GetRepoFromGitHub(repoName));
-            task.Wait();
+            var task = Task.Run(async () => await GitHubUtility.GetRepoFromGitHub(info, repoName, repoAuthor));
+            task.Wait(TimeSpan.FromSeconds(30));
             return task.Result;
         }
         
-        public static void RunGitProcessWithArgs(string gitAddArgument, bool writeConsole = true)
+        public static void RunGitProcessWithArgs(string workingDirectory, string gitAddArgument, bool writeConsole = true)
         {
             if (writeConsole) Console.WriteLine("git " + gitAddArgument);
             var gitAdd = new Process
             {
                 StartInfo = new ProcessStartInfo
                 {
+                    WorkingDirectory = workingDirectory,
                     FileName = "git",
                     Arguments = gitAddArgument,
                     UseShellExecute = false,
@@ -40,32 +42,34 @@ namespace RimworldModReleaseTool
             
         }
         
-        public static async Task<Octokit.Repository> GetRepoFromGitHub(string searchKey)
+        public static async Task<Octokit.Repository> GetRepoFromGitHub(ModUpdateInfo info, string repoName, string repoAuthor = "")
         {
-            //var owner = "jecrell";
-            var reponame = searchKey;
-            var client = new GitHubClient(new Octokit.ProductHeaderValue(ClientToken));
-            //var repository = await client.Repository.Get( owner, reponame);
-
-            var request = new SearchRepositoriesRequest(reponame)
+            
+            if (repoName != "" && repoAuthor != "")
+                return info.Client.Repository.Get(repoAuthor, repoName).Result;
+                
+            var request = new SearchRepositoriesRequest(repoName)
             {
+                Language = Language.CSharp,
+                Archived = false
             };
 
-            var searchResult = await client.Search.SearchRepo(request);
-
-            if (searchResult.Items != null)
+            var searchResult = await info.Client.Search.SearchRepo(request);
+                        
+            Repository repository = null;
+            if (searchResult?.Items?.Count > 0)
             {
-                var repository = searchResult.Items.First();
-            
-                return repository;
+                repository = searchResult.Items.First();
             }
+            
+            return repository;
+
         }        
-        public static async Task<Octokit.Release> CreateRelease(Repository repo, string version, string name, string body)
+        public static async Task<Octokit.Release> CreateRelease(ModUpdateInfo info, Repository repo, string version, string name, string body)
         {
-            var client = new GitHubClient(new Octokit.ProductHeaderValue(ClientToken));
 
             //Get list of commits
-            var latestCommits = Task.Run(async () => await client.Repository.Commit.GetAll(repo.Owner.Login, repo.Name));
+            var latestCommits = Task.Run(async () => await info.Client.Repository.Commit.GetAll(repo.Owner.Login, repo.Name));
             latestCommits.Wait();
             var latestCommit = latestCommits.Result.First().Sha;
             
@@ -75,29 +79,24 @@ namespace RimworldModReleaseTool
                 Tag = version,
                 Object = latestCommit, // short SHA
                 Type = TaggedType.Commit, // TODO: what are the defaults when nothing specified?
-                Tagger = new Committer("", "", DateTimeOffset.UtcNow)
+                Tagger = new Committer(info.GitHubAuthor, info.GitHubEmail, DateTimeOffset.UtcNow)
             };
-            Console.WriteLine("Connecting to GitHub requires a login.\nPlease enter your credentials to proceed.");
-            Console.Write("Username: ");
-            var auth = Console.ReadLine();
-            Console.Write("Password: ");
-            var key = Console.ReadLine();
-            var basicAuth = new Credentials(auth, key); // NOTE: not real credentials
-            client.Credentials = basicAuth;
-            
-            var newTagProc = Task.Run(async () => await client.Git.Tag.Create(repo.Owner.Login, repo.Name, tag));
+            var newTagProc = Task.Run(async () => await info.Client.Git.Tag.Create(repo.Owner.Login, repo.Name, tag));
             newTagProc.Wait();
 
             var newTag = newTagProc.Result;
             Console.WriteLine("Created a tag for {0} at {1}", newTag.Tag, newTag.Sha);
+
+            var newRelease = new NewRelease(newTag.Tag)
+            {
+                Name = repo.Name + " " + name,
+                Body = body,
+                Draft = false,
+                Prerelease = false
+            };
+
             
-            var newRelease = new NewRelease(newTag.Tag);
-            newRelease.Name = repo.Name + " " + name;
-            newRelease.Body = body;
-            newRelease.Draft = false;
-            newRelease.Prerelease = false;
-            
-            var result = await client.Repository.Release.Create(repo.Owner.Login, repo.Name, newRelease);
+            var result = await info.Client.Repository.Release.Create(repo.Owner.Login, repo.Name, newRelease);
             return result;
         }
 
