@@ -10,9 +10,12 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Security.Permissions;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Xml;
 using System.Xml.Schema;
+using System.Xml.Serialization;
 using Microsoft.SqlServer.Server;
 using Octokit;
 using FileMode = System.IO.FileMode;
@@ -22,21 +25,37 @@ namespace RimworldModReleaseTool
 {
     internal class Program
     {
+        private static ReleaseSettings InitializeSettings(out ReleaseSettings settings)
+        {
+            var xml = new XmlDocument();
+            xml.Load("config.xml");
+            Console.WriteLine(xml.InnerXml);
+            settings = null;
+            using(TextReader sr = new StringReader(xml.InnerXml))
+            {
+                var serializer = new XmlSerializer(typeof(ReleaseSettings));
+                settings =  (ReleaseSettings)serializer.Deserialize(sr);
+                Console.WriteLine(settings.GithubProductHeaderValue);
+            }
+            
+            if (settings == null)
+            {
+                Console.WriteLine("File config.xml is missing, unreadable, or inaccessible");
+                throw new NullReferenceException();
+            }
+            return settings;
+        }
         
         public static void Main(string[] args)
         {
+            ReleaseSettings settings;
+            InitializeSettings(out settings);
+            
+            string workspacePath = ResolvePathForWorkspace(args);
+            string releasePath = ResolvePathForRelease(args);
 
+            var curDirName = workspacePath.Split(Path.DirectorySeparatorChar).Last();
 
-            string currentPath = Directory.GetCurrentDirectory();
-            string[] excludedPaths =
-                {".git", "\\source", ".gitattributes", ".gitignore", ".idea", ".vs", ".exe", "Octokit"};
-            string[] excludedZipFiles = {"PublishedFileId", "Deployer", "RimworldModReleaseTool", "updateinfo", "Octokit"};
-            string path = Path.GetFullPath(args[0]);
-
-            var curDirName = currentPath.Split(Path.DirectorySeparatorChar).Last();
-            var task = Task.Run(async () => await GitHubUtility.GetRepoFromGitHub(curDirName));
-            task.Wait();
-            var repo = task.Result;
             
             //////////////////////////////
             /// Automating my Dev Process
@@ -45,30 +64,76 @@ namespace RimworldModReleaseTool
             //////////////////////////////
             /// General
             //1. Make seperate directory for release.
-                if (!DeleteExistingDirectoriesIfAny(path, currentPath)) goto Abort;
-                CopyFilesAndDirectories(currentPath, excludedPaths, path);
+                if (!DeleteExistingDirectoriesIfAny(releasePath, workspacePath)) goto Abort;
+                CopyFilesAndDirectories(workspacePath, Regex.Replace(settings.FilteredWhenCopied, @"\s+", "").Split(','), releasePath);
             //2. Restart RimWorld for testing.
                 RestartRimWorldRequest();
             
-            if (!UserAccepts("\nPublish update for " + repo.Name + "?"))
+            if (!UserAccepts("\nPublish update for " + curDirName + "?"))
                 goto Abort;
-            ModUpdateInfo updateInfo = new ModUpdateInfo(currentPath, repo);
+            ModUpdateInfo updateInfo = new ModUpdateInfo(settings, workspacePath);
             
             /////////////////////////////
             /// Publishing
             //1. Update GitHub
-            GitHubCommitRequest(updateInfo);
-            GitHubReleaseRequest(repo, updateInfo);
+            GitHubCommitRequest(settings, updateInfo);
+            GitHubReleaseRequest(settings, updateInfo);
             //2. Update Discord
-            GenerateJSONPost(updateInfo);
+            SendJSONToDiscordWebhook(settings, updateInfo);
             //3. Update Patreon
-            OutputUpdateReport(updateInfo);
-            ZipFilesRequest(path, updateInfo, excludedZipFiles);
+            OutputUpdateReport(settings, updateInfo);
+            ZipFilesRequest(releasePath, updateInfo, Regex.Replace(settings.FilteredWhenZipped, @"\s+", "").Split(','));
             //4. Update Ludeon
             //5. Update Steam
             
             Abort:
             Console.WriteLine("\nFin."); // Any key to exit...");
+        }
+
+        private static string ResolvePathForWorkspace(string[] args)
+        {
+            string result = "";
+            if (args != null && args.Length != 0)
+            {
+                //Case 1: One argument is passed. Suppose current directory is Workspace directory.
+                if (args.Length == 1)
+                    result = Directory.GetCurrentDirectory();
+                //Case 2: Two arguments or more are passed. Assume the first argument is the Workspace directory.
+                else
+                {
+                    result = args[0];
+                }
+            }
+            if (result == "")
+            {
+                Console.WriteLine("Expected arguments passed. None received.\n" +
+                                  "Unable to resolve path of mod workspace.\n" +
+                                  "Please enter mod workspace directory path: ");
+                result = Console.ReadLine();   
+            }
+            return result;
+        }
+
+        private static string ResolvePathForRelease(string[] args)
+        {
+            string result = "";
+            if (args != null && args.Length != 0)
+            {
+                //Case 1: One argument is passed. Suppose argument is target directory.
+                if (args.Length == 1)
+                    result = Path.GetFullPath(args[0]);
+                //Case 2: Two arguments or more are passed. Assume the second argument is the target directory.
+                else
+                    result = Path.GetFullPath(args[1]);
+            }
+            if (result == "")
+            {
+                Console.WriteLine("Expected arguments passed. None received.\n" +
+                                  "Unable to resolve path of mod release directory.\n" +
+                                  "Please enter mod release directory path: ");
+                result = Console.ReadLine();   
+            }
+            return result;
         }
 
         private static void HttpWebRequestWithJSON(string json, string token)
@@ -96,75 +161,81 @@ namespace RimworldModReleaseTool
             //Console.WriteLine(result);
         }
 
-        private static void OutputUpdateReport(ModUpdateInfo updateInfo)
+        private static void OutputUpdateReport(ReleaseSettings settings, ModUpdateInfo updateInfo)
         {
-            StringBuilder s = new StringBuilder();
-            
-            s.AppendLine("==============================");
-            s.AppendLine("==========Steam Format========");
-            s.AppendLine("==============================");
-            s.AppendLine();
-            s.AppendLine(updateInfo.Name + " Update");
-            s.AppendLine("====================");
-            s.AppendLine("Version: " + updateInfo.Version);
-            s.AppendLine("Updated: " + updateInfo.PublishDateString);
-            s.AppendLine("Description: " + updateInfo.Description);
-            s.AppendLine("====================");
-            s.AppendLine("Greetings fellow RimWorlder,");
-            s.AppendLine();
-            s.AppendLine("Text goes here");
-            s.AppendLine();
-            s.AppendLine("Yours");
-            s.AppendLine("-Jec");
-            s.AppendLine();
-            s.AppendLine("Download now on...");
-            s.AppendLine("- Patreon: " + updateInfo.PatreonURL);
-            s.AppendLine("- GitHub: " + updateInfo.URL);
-            s.AppendLine("- Steam: " + updateInfo.SteamURL);
-            s.AppendLine("Discuss the mod on...");
-            s.AppendLine("- Discord: " + updateInfo.DiscordURL);
-            s.AppendLine("- Ludeon forums: " + updateInfo.LudeonURL);
-            s.AppendLine();
-            
-            s.AppendLine("==============================");
-            s.AppendLine("===========BBS Format=========");
-            s.AppendLine("==============================");
-            s.AppendLine();
-            s.AppendLine("[center][b][glow=red,2,300][size=18pt]" + updateInfo.Name + "[/size][/glow][/b]");
-            s.AppendLine("[img width=260]" + updateInfo.ImageUrl + "[/img]");
-            s.AppendLine("[hr]");
-            s.AppendLine("[b]" + updateInfo.Name);
-            s.AppendLine("Version: " + updateInfo.Version);
-            s.AppendLine("Updated: " + updateInfo.PublishDateString);
-            s.AppendLine("Description: [color=orange]" + updateInfo.Description + "[/color]");
-            s.AppendLine("[hr][b]Notes from Jec:[/b][/center]");
-            s.AppendLine();
-            s.AppendLine("[center][tt]Greetings fellow RimWorlder,");
-            s.AppendLine();
-            s.AppendLine("Text goes here");
-            s.AppendLine();
-            s.AppendLine("[tt]Yours[/tt]");
-            s.AppendLine("[list][li][tt]Jec[/tt][/li][/list]");
-            s.AppendLine("[hr]");
-            s.AppendLine("[b]Download now on...[/b]");
-            s.AppendLine("[url=" + updateInfo.PatreonURL + "]Patreon[/url]");
-            s.AppendLine("[url=" + updateInfo.URL + "]GitHub[/url]");
-            s.AppendLine("[url=" + updateInfo.SteamURL + "]Steam[/url]");
-            s.AppendLine("[b]Discuss the mod on...[/b]");
-            s.AppendLine("[url=" + updateInfo.DiscordURL + "]Discord[/url]");
-            var newFilePath = updateInfo.Path + @"\updateinfo";
-            if (File.Exists(newFilePath))
+            if (settings.ShowCopyableNotes)
             {
-                File.Delete(newFilePath);
+                StringBuilder s = new StringBuilder();
+                
+                s.AppendLine("==============================");
+                s.AppendLine("==========Steam Format========");
+                s.AppendLine("==============================");
+                s.AppendLine();
+                s.AppendLine(updateInfo.Name + " Update");
+                s.AppendLine("====================");
+                s.AppendLine("Version: " + updateInfo.Version);
+                s.AppendLine("Updated: " + updateInfo.PublishDateString);
+                s.AppendLine("Description: " + updateInfo.Description);
+                s.AppendLine("====================");
+                s.AppendLine("Greetings fellow RimWorlder,");
+                s.AppendLine();
+                s.AppendLine("Text goes here");
+                s.AppendLine();
+                s.AppendLine("Yours");
+                s.AppendLine("-Jec");
+                s.AppendLine();
+                s.AppendLine("Download now on...");
+                s.AppendLine("- Patreon: " + updateInfo.PatreonURL);
+                s.AppendLine("- GitHub: " + updateInfo.URL);
+                s.AppendLine("- Steam: " + updateInfo.SteamURL);
+                s.AppendLine("Discuss the mod on...");
+                s.AppendLine("- Discord: " + updateInfo.DiscordURL);
+                s.AppendLine("- Ludeon forums: " + updateInfo.LudeonURL);
+                s.AppendLine();
+                
+                s.AppendLine("==============================");
+                s.AppendLine("===========BBS Format=========");
+                s.AppendLine("==============================");
+                s.AppendLine();
+                s.AppendLine("[center][b][glow=red,2,300][size=18pt]" + updateInfo.Name + "[/size][/glow][/b]");
+                s.AppendLine("[img width=260]" + updateInfo.ImageUrl + "[/img]");
+                s.AppendLine("[hr]");
+                s.AppendLine("[b]" + updateInfo.Name);
+                s.AppendLine("Version: " + updateInfo.Version);
+                s.AppendLine("Updated: " + updateInfo.PublishDateString);
+                s.AppendLine("Description: [color=orange]" + updateInfo.Description + "[/color]");
+                s.AppendLine("[hr][b]Notes from Jec:[/b][/center]");
+                s.AppendLine();
+                s.AppendLine("[center][tt]Greetings fellow RimWorlder,");
+                s.AppendLine();
+                s.AppendLine("Text goes here");
+                s.AppendLine();
+                s.AppendLine("[tt]Yours[/tt]");
+                s.AppendLine("[list][li][tt]Jec[/tt][/li][/list]");
+                s.AppendLine("[hr]");
+                s.AppendLine("[b]Download now on...[/b]");
+                s.AppendLine("[url=" + updateInfo.PatreonURL + "]Patreon[/url]");
+                s.AppendLine("[url=" + updateInfo.URL + "]GitHub[/url]");
+                s.AppendLine("[url=" + updateInfo.SteamURL + "]Steam[/url]");
+                s.AppendLine("[b]Discuss the mod on...[/b]");
+                s.AppendLine("[url=" + updateInfo.DiscordURL + "]Discord[/url]");
+                var newFilePath = updateInfo.Path + @"\updateinfo";
+                if (File.Exists(newFilePath))
+                {
+                    File.Delete(newFilePath);
+                }
+                System.IO.File.WriteAllText(newFilePath, s.ToString());
+                Process.Start(settings.CopyableNotesProgram, newFilePath);                
             }
-            System.IO.File.WriteAllText(newFilePath, s.ToString());
-            Process.Start("notepad.exe", newFilePath);
+
         }
 
-        private static void GitHubReleaseRequest(Repository repo, ModUpdateInfo updateInfo)
+
+        private static void GitHubReleaseRequest(ReleaseSettings settings, ModUpdateInfo updateInfo)
         {
-            if (UserAccepts($"Make release on github? (Y/N) "))
-            {                           
+            if (settings.HandleGitHub && UserAccepts($"Make release on github? (Y/N) "))
+            {
+                var repo = GitHubUtility.GetGithubRepository(settings, updateInfo.Name);
                 var task = Task.Run(async () => await GitHubUtility.CreateRelease(repo, version: updateInfo.Version, name: updateInfo.Title, body: updateInfo.Description));
                 task.Wait();
                 var result = task.Result;
@@ -172,10 +243,11 @@ namespace RimworldModReleaseTool
             }
         }
 
-        private static void GitHubCommitRequest(ModUpdateInfo updateInfo)
+        private static void GitHubCommitRequest(ReleaseSettings settings, ModUpdateInfo updateInfo)
         {
-            if (UserAccepts($"Push to github with commit? (Y/N) "))
+            if (settings.HandleGitHub && UserAccepts($"Push to github with commit? (Y/N) "))
             {
+                var repo = GitHubUtility.GetGithubRepository(settings, updateInfo.Name);
                 GitHubUtility.RunGitProcessWithArgs(@"add -A");
                 GitHubUtility.RunGitProcessWithArgs(@"commit " + updateInfo.Description);
                 GitHubUtility.RunGitProcessWithArgs(@"push origin master");
@@ -317,7 +389,9 @@ namespace RimworldModReleaseTool
                         Directory.Delete(path, true);
                     }
                 }
-                catch (Exception exception)
+#pragma warning disable 168
+                catch (Exception e)
+#pragma warning restore 168
                 {
                     Console.WriteLine("Failed to delete. Directory. Forcing delete and relaunching.");   
                     var process = Process.Start("C:\\Program Files\\LockHunter\\LockHunter.exe",
@@ -344,9 +418,9 @@ namespace RimworldModReleaseTool
             return true;
         }
 
-        private static void GenerateJSONPost(ModUpdateInfo updateInfo)
+        private static void SendJSONToDiscordWebhook(ReleaseSettings settings, ModUpdateInfo updateInfo)
         {
-            if (UserAccepts("Generate JSON message to Discord? (Y/N) : "))
+            if (settings.HandleDiscord && UserAccepts("Generate JSON message to Discord? (Y/N) : "))
             {
                 var updateInfoName = updateInfo.Name;
                 var updateInfoVersion = updateInfo.Version;
@@ -401,152 +475,5 @@ namespace RimworldModReleaseTool
         }
 
 
-    }
-
-    internal class ModUpdateInfo
-    {
-        private static readonly string RimWorldVer = "B19"; 
-        private static readonly DateTime FirstPublishDate = new DateTime(2016, 12, 11);
-
-        
-        private string path;
-        private string team;
-        private string name;
-        private string title;
-        private DateTime publishDate = DateTime.Now;
-        private string publishDateString = null;
-        private string version;
-        private string description;
-        private string url;
-        private string imageURL;
-        private string patreonURL;
-        private string steamURL;
-        private string discordURL;
-        private string ludeonURL;
-        private string webhookToken;
-        public string Path => path;
-        public string Name => name;
-        public string Title => Name + " - " + title;
-        public string Team => team;
-        public DateTime PublishDate => publishDate;
-        public string PublishDateString => publishDateString;
-        public string Version => version;
-        public string Description => description;
-        public string URL => url;
-        public string ImageUrl => imageURL;
-        public string PatreonURL => patreonURL;
-        public string SteamURL => steamURL;
-        public string DiscordURL => discordURL;
-        public string DiscordWebhookToken => webhookToken;
-        public string LudeonURL => ludeonURL;
-
-        public ModUpdateInfo(string newPath, Repository repo)
-        {
-            ///// Get the name
-            path = newPath;
-            name = repo.Name; //path.Substring(path.LastIndexOf("\\", StringComparison.Ordinal) + 1);
-            team = repo.Owner.ToString();
-            
-            ///// Get the date
-            publishDate = DateTime.Now;
-            publishDateString = $"{publishDate:MM-dd-yyyy}";
-
-            ///// Autoset a version number
-            var daysSinceStarted = (DateTime.Now - FirstPublishDate).Days;
-            version = RimWorldVer + '.' + daysSinceStarted;
-            
-            ///// Get the repo's preview image
-            url = repo.HtmlUrl;
-            imageURL = url + "/master/About/Preview.png";
-            imageURL =
-                imageURL.Replace("https://github.com/", "https://raw.githubusercontent.com/");
-            
-            ///// Get the update title
-            Console.Write("\nPlease enter a title or Press ENTER to continue : ");
-            title = "";
-            title = Console.ReadLine();
-            Console.WriteLine();
-            
-            ///// Get the update description
-            Console.Write("\nPlease enter a description or Press ENTER to continue : ");
-            description = "";
-            description = Console.ReadLine();
-            Console.WriteLine();
-            
-            ///// Get the Steam URL
-            string steamPublishID = File.ReadLines(path + @"\About\PublishedFileId.txt").First();
-            steamURL = @"https://steamcommunity.com/sharedfiles/filedetails/?id=" + steamPublishID;
-            
-            ///// Get the Patreon URL
-            var patreonPath = path + @"\About\PatreonURL.txt";
-            if (!File.Exists(patreonPath))
-            {
-                if (Program.UserAccepts("Patreon URL file not detected. Create new one? (Y/N): "))
-                {
-                    Console.Write("\nPlease enter the Patreon URL or Press ENTER to continue : ");
-                    patreonURL = "";
-                    patreonURL = Console.ReadLine();
-                    Console.WriteLine();
-                    System.IO.File.WriteAllText(patreonPath, patreonURL + "\n");
-                }
-            }
-            else
-                patreonURL = File.ReadLines(patreonPath).First();   
-            
-            ///// Get the Discord URL
-            var discordPath = path + @"\About\DiscordURL.txt";
-            if (!File.Exists(discordPath))
-            {
-                if (Program.UserAccepts("Discord URL file not detected. Create new one? (Y/N): "))
-                {
-                    Console.Write("\nPlease enter the Discord invite URL or Press ENTER to continue : ");
-                    discordURL = "";
-                    discordURL = Console.ReadLine();
-                    Console.WriteLine();
-                    System.IO.File.WriteAllText(discordPath, discordURL + "\n");
-                }
-            }
-            else
-                discordURL = File.ReadLines(discordPath).First();
-            
-            ///// Get the Ludeon URL
-            var ludeonPath = path + @"\About\LudeonURL.txt";
-            if (!File.Exists(ludeonPath))
-            {
-                if (Program.UserAccepts("Ludeon URL file not detected. Create new one? (Y/N): "))
-                {
-                    Console.Write("\nPlease enter the Ludeon thread URL or Press ENTER to continue : ");
-                    ludeonURL = "";
-                    ludeonURL = Console.ReadLine();
-                    Console.WriteLine();
-                    System.IO.File.WriteAllText(ludeonPath, ludeonURL + "\n");
-                }
-            }
-            else
-                ludeonURL = File.ReadLines(ludeonPath).First();
-
-            ///// Get the Discord Webhook
-            var webhookPath = path + @"\Source\DiscordWebhookToken.txt";
-            if (!File.Exists(webhookPath))
-            {
-                if (Program.UserAccepts("Discord Webhook Token not detected. Create new one? (Y/N): "))
-                {
-                    Console.Write("\nPlease enter the Discord Webhook link or Press ENTER to continue : ");
-                    webhookToken = "";
-                    webhookToken = Console.ReadLine();
-                    Console.WriteLine();
-                    System.IO.File.WriteAllText(webhookPath, webhookToken + "\n");
-                }
-            }
-            else
-            {
-                webhookToken = File.ReadLines(webhookPath).First().Trim();
-                //Console.WriteLine(webhookToken);
-            }
-
-            ///// Get GitHub credentials
-            
-
-        }
     }
 }

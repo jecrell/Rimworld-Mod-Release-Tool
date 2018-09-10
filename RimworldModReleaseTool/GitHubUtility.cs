@@ -9,8 +9,15 @@ namespace RimworldModReleaseTool
 {
     public static class GitHubUtility
     {
-        private static readonly string ClientToken = "jecrell.rimworldmodreleasetool";
-
+        public static readonly string ClientToken = "RimworldModReleaseTool";
+        
+        public static Repository GetGithubRepository(ReleaseSettings settings, string repoName)
+        {
+            var task = Task.Run(async () => await GitHubUtility.GetRepoFromGitHub(repoName));
+            task.Wait();
+            return task.Result;
+        }
+        
         public static void RunGitProcessWithArgs(string gitAddArgument, bool writeConsole = true)
         {
             if (writeConsole) Console.WriteLine("git " + gitAddArgument);
@@ -33,10 +40,10 @@ namespace RimworldModReleaseTool
             
         }
         
-        public static async Task<Octokit.Repository> GetRepoFromGitHub(string newRepoName)
+        public static async Task<Octokit.Repository> GetRepoFromGitHub(string searchKey)
         {
             //var owner = "jecrell";
-            var reponame = newRepoName;
+            var reponame = searchKey;
             var client = new GitHubClient(new Octokit.ProductHeaderValue(ClientToken));
             //var repository = await client.Repository.Get( owner, reponame);
 
@@ -46,9 +53,12 @@ namespace RimworldModReleaseTool
 
             var searchResult = await client.Search.SearchRepo(request);
 
-            var repository = searchResult.Items.First();
+            if (searchResult.Items != null)
+            {
+                var repository = searchResult.Items.First();
             
-            return repository;
+                return repository;
+            }
         }        
         public static async Task<Octokit.Release> CreateRelease(Repository repo, string version, string name, string body)
         {
@@ -65,11 +75,12 @@ namespace RimworldModReleaseTool
                 Tag = version,
                 Object = latestCommit, // short SHA
                 Type = TaggedType.Commit, // TODO: what are the defaults when nothing specified?
-                Tagger = new Committer("jecrell from Release Tool", "matt.walls31@gmail.com", DateTimeOffset.UtcNow)
+                Tagger = new Committer("", "", DateTimeOffset.UtcNow)
             };
-            Console.Write("Auth: ");
+            Console.WriteLine("Connecting to GitHub requires a login.\nPlease enter your credentials to proceed.");
+            Console.Write("Username: ");
             var auth = Console.ReadLine();
-            Console.Write("Key: ");
+            Console.Write("Password: ");
             var key = Console.ReadLine();
             var basicAuth = new Credentials(auth, key); // NOTE: not real credentials
             client.Credentials = basicAuth;
