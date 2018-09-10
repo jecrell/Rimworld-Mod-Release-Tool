@@ -34,3 +34,4 @@ C:\Program Files (x86)\Steam\steamapps\common\RimWorld\ModsWorkspace\RimWorldMod
 C:\Program Files (x86)\Steam\steamapps\common\RimWorld\ModsWorkspace\RimWorldModReleaseTool\RimworldModReleaseTool\bin\Debug\Octokit.dll
 C:\Program Files (x86)\Steam\steamapps\common\RimWorld\ModsWorkspace\RimWorldModReleaseTool\RimworldModReleaseTool\bin\Debug\configDefaults.xml
 C:\Program Files (x86)\Steam\steamapps\common\RimWorld\ModsWorkspace\RimWorldModReleaseTool\RimworldModReleaseTool\bin\Debug\config.xml
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\ModsWorkspace\RimWorldModReleaseTool\RimworldModReleaseTool\bin\Debug\System.Management.Automation.dll

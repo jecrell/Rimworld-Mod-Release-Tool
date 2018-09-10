@@ -282,9 +282,9 @@ namespace RimworldModReleaseTool
         {
             if (settings.HandleGitHub && UserAccepts($"\nPush to github with commit? (Y/N) "))
             {
-                GitHubUtility.RunGitProcessWithArgs(updateInfo.Path, @"add -A");
-                GitHubUtility.RunGitProcessWithArgs(updateInfo.Path, @"commit " + updateInfo.Description);
-                GitHubUtility.RunGitProcessWithArgs(updateInfo.Path, @"push origin master");
+                GitHubUtility.RunGitProcessWithArgs(updateInfo.Path, updateInfo.Name + " " + updateInfo.Description);
+                //GitHubUtility.RunGitProcessWithArgs(updateInfo.Path, @"commit " + updateInfo.Description);
+                //GitHubUtility.RunGitProcessWithArgs(updateInfo.Path, @"push origin master");
             }
         }
 

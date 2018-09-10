@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Management.Automation;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Microsoft.Win32;
 using Octokit;
 
 namespace RimworldModReleaseTool
@@ -19,27 +22,41 @@ namespace RimworldModReleaseTool
             return task.Result;
         }
         
-        public static void RunGitProcessWithArgs(string workingDirectory, string gitAddArgument, bool writeConsole = true)
+        
+        public static string GetGitCMDPath()
         {
-            if (writeConsole) Console.WriteLine("git " + gitAddArgument);
-            var gitAdd = new Process
+            RegistryKey rk = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64);
+            RegistryKey sk1 = rk.OpenSubKey(@"SOFTWARE\GitForWindows");
+            if (sk1 == null)
+                return null;
+            else
             {
-                StartInfo = new ProcessStartInfo
+                try
                 {
-                    WorkingDirectory = workingDirectory,
-                    FileName = "git",
-                    Arguments = gitAddArgument,
-                    UseShellExecute = false,
-                    RedirectStandardOutput = true,
-                    CreateNoWindow = true
+                    return (string) sk1.GetValue("InstallPath") + @"\cmd\git.exe";
                 }
-            };
-            gitAdd.Start();
-            while (!gitAdd.StandardOutput.EndOfStream)
-            {
-                if (writeConsole) Console.WriteLine(gitAdd.StandardOutput.ReadLine());
+                catch (Exception e)
+                {
+                    Console.WriteLine("Failed to find GitForWindows' directory");
+                    return null;
+                }
             }
-            
+        }
+        
+        
+        public static void RunGitProcessWithArgs(string workingDirectory, string info)
+        {
+            using (PowerShell powershell = PowerShell.Create()) {
+                // this changes from the user folder that PowerShell starts up with to your git repository
+                powershell.AddScript(String.Format("cd \"{0}\"", workingDirectory));
+
+                powershell.AddScript(@"git init");
+                powershell.AddScript(@"git add *");
+                powershell.AddScript(@"git commit -m 'git commit from PowerShell in C#" + info + "'");
+                powershell.AddScript(@"git push origin master");
+
+                Collection<PSObject> results = powershell.Invoke();
+            }            
         }
         
         public static async Task<Octokit.Repository> GetRepoFromGitHub(ModUpdateInfo info, string repoName, string repoAuthor = "")
