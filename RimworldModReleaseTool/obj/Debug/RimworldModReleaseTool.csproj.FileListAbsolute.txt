@@ -35,3 +35,11 @@ C:\Program Files (x86)\Steam\steamapps\common\RimWorld\ModsWorkspace\RimWorldMod
 C:\Program Files (x86)\Steam\steamapps\common\RimWorld\ModsWorkspace\RimWorldModReleaseTool\RimworldModReleaseTool\bin\Debug\configDefaults.xml
 C:\Program Files (x86)\Steam\steamapps\common\RimWorld\ModsWorkspace\RimWorldModReleaseTool\RimworldModReleaseTool\bin\Debug\config.xml
 C:\Program Files (x86)\Steam\steamapps\common\RimWorld\ModsWorkspace\RimWorldModReleaseTool\RimworldModReleaseTool\bin\Debug\System.Management.Automation.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\ModsWorkspace\RimWorldModReleaseTool\RimworldModReleaseTool\bin\Debug\Steamworks.NET.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\ModsWorkspace\RimWorldModReleaseTool\RimworldModReleaseTool\bin\Debug\System.Diagnostics.DiagnosticSource.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\ModsWorkspace\RimWorldModReleaseTool\RimworldModReleaseTool\bin\Debug\System.IO.Compression.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\ModsWorkspace\RimWorldModReleaseTool\RimworldModReleaseTool\bin\Debug\System.Net.Http.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\ModsWorkspace\RimWorldModReleaseTool\RimworldModReleaseTool\bin\Debug\System.Diagnostics.DiagnosticSource.xml
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\ModsWorkspace\RimWorldModReleaseTool\RimworldModReleaseTool\bin\Debug\steamdlls\steam_api.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\ModsWorkspace\RimWorldModReleaseTool\RimworldModReleaseTool\bin\Debug\steamdlls\steam_api64.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\ModsWorkspace\RimWorldModReleaseTool\RimworldModReleaseTool\bin\Debug\steamdlls\steam_appid.txt

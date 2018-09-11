@@ -204,9 +204,9 @@ namespace RimworldModReleaseTool
 
                 client = new GitHubClient(new Octokit.ProductHeaderValue("RimworldModReleaseTool"));
                 var auth = gitRepoAuthor;
-                if (Program.UserAccepts("Login to GitHub? (Y/N): "))
+                if (Program.UserAccepts("\nLogin to GitHub? (Y/N): "))
                 {    
-                    Console.WriteLine("Connecting to GitHub requires a login.\nPlease enter your credentials to proceed.");
+                    Console.WriteLine("\nConnecting to GitHub requires a login.\nPlease enter your credentials to proceed.");
                     Console.WriteLine("Username: ");
                     auth = Console.ReadLine();
                     Console.WriteLine("Password: ");

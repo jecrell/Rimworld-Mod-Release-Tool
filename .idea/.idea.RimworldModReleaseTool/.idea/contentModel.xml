@@ -10,6 +10,7 @@
         <e p="GitHubUtility.cs" t="Include" />
         <e p="LudeonUtility.cs" t="Include" />
         <e p="MiscUtility.cs" t="Include" />
+        <e p="Mod.cs" t="Include" />
         <e p="ModUpdateInfo.cs" t="Include" />
         <e p="obj" t="ExcludeRecursive" />
         <e p="packages.config" t="Include" />
@@ -20,6 +21,11 @@
         </e>
         <e p="ReleaseSettings.cs" t="Include" />
         <e p="RimworldModReleaseTool.csproj" t="IncludeRecursive" />
+        <e p="steamdlls" t="Include">
+          <e p="steam_api.dll" t="Include" />
+          <e p="steam_api64.dll" t="Include" />
+          <e p="steam_appid.txt" t="Include" />
+        </e>
         <e p="SteamUtility.cs" t="Include" />
       </e>
       <e p="RimworldModReleaseTool.sln" t="IncludeFlat" />

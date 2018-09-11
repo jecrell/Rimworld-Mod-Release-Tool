@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
-using System.IO.Compression;
+using System.IO.Compression;             
 using System.Linq;
 using System.Net;
 using System.Reflection;
@@ -53,8 +53,6 @@ namespace RimworldModReleaseTool
             string releasePath = ResolvePathForRelease(args);
 
             var curDirName = workspacePath.Split(Path.DirectorySeparatorChar).Last();
-
-            
             ////////////////////////////////////////
             /// Automating the RimWorld Dev Process
             ////////////////////////////////////////
@@ -84,7 +82,7 @@ namespace RimworldModReleaseTool
             //4. Update Ludeon
             //LudeonPostRequest(settings, updateInfo); //TODO
             //5. Update Steam
-            //SteamUpdateRequest(settings, updateInfo); //TODO
+            SteamUpdateRequest(settings, updateInfo, releasePath); //TODO
             OutputUpdateReport(settings, updateInfo);            
             
             Abort:
@@ -99,11 +97,28 @@ namespace RimworldModReleaseTool
             }
         }
 
-        private static void SteamUpdateRequest(ReleaseSettings settings, ModUpdateInfo updateInfo)
+        private static void SteamUpdateRequest(ReleaseSettings settings, ModUpdateInfo updateInfo, string releasePath)
         {
-            if (Program.UserAccepts("Update Ludeon forum thread front page now? (Y/N): "))
+            if (Program.UserAccepts("Upload to Steam workshop now? (Y/N): "))
             {
-                LudeonUtility.UpdatePost(settings, updateInfo);
+                try
+                {
+                    var mod = new Mod( releasePath );
+                    SteamUtility.Init();
+                    Console.WriteLine( mod.ToString() );
+                    if ( SteamUtility.Upload( mod ) )
+                    {
+                        Console.WriteLine("Upload done");
+                    }
+                }
+                catch ( Exception e )
+                {
+                    Console.WriteLine( e.Message );
+                }
+                finally
+                {
+                    SteamUtility.Shutdown();
+                }
             }
         }
 
