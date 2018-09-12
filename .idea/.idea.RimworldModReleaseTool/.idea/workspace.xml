@@ -2,31 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9bf3d1bb-c96a-4c3a-9cbb-2c166f893439" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.RimworldModReleaseTool/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.RimworldModReleaseTool/.idea/contentModel.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.RimworldModReleaseTool/.idea/indexLayout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.RimworldModReleaseTool/.idea/indexLayout.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.RimworldModReleaseTool/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.RimworldModReleaseTool/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RimworldModReleaseTool.sln" beforeDir="false" afterPath="$PROJECT_DIR$/RimworldModReleaseTool.sln" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RimworldModReleaseTool/GitHubUtility.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RimworldModReleaseTool/GitHubUtility.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RimworldModReleaseTool/LudeonUtility.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RimworldModReleaseTool/LudeonUtility.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RimworldModReleaseTool/MiscUtility.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RimworldModReleaseTool/MiscUtility.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RimworldModReleaseTool/Mod.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RimworldModReleaseTool/Mod.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RimworldModReleaseTool/ModUpdateInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RimworldModReleaseTool/ModUpdateInfo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RimworldModReleaseTool/PatreonUtility.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RimworldModReleaseTool/PatreonUtility.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RimworldModReleaseTool/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RimworldModReleaseTool/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RimworldModReleaseTool/RimworldModReleaseTool.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/RimworldModReleaseTool/RimworldModReleaseTool.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RimworldModReleaseTool/bin/Debug/RimworldModReleaseTool.exe" beforeDir="false" afterPath="$PROJECT_DIR$/RimworldModReleaseTool/bin/Debug/RimworldModReleaseTool.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RimworldModReleaseTool/bin/Debug/RimworldModReleaseTool.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/RimworldModReleaseTool/bin/Debug/RimworldModReleaseTool.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RimworldModReleaseTool/bin/Debug/Steamworks.NET.dll" beforeDir="false" afterPath="$PROJECT_DIR$/RimworldModReleaseTool/bin/Debug/Steamworks.NET.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RimworldModReleaseTool/bin/Debug/System.IO.Compression.FileSystem.dll" beforeDir="false" afterPath="$PROJECT_DIR$/RimworldModReleaseTool/bin/Debug/System.IO.Compression.FileSystem.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RimworldModReleaseTool/bin/Debug/steamdlls/steam_api.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/RimworldModReleaseTool/bin/Debug/steamdlls/steam_api64.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/RimworldModReleaseTool/bin/Debug/steamdlls/steam_appid.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/RimworldModReleaseTool/obj/Debug/RimworldModReleaseTool.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/RimworldModReleaseTool/obj/Debug/RimworldModReleaseTool.csproj.CoreCompileInputs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RimworldModReleaseTool/obj/Debug/RimworldModReleaseTool.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/RimworldModReleaseTool/obj/Debug/RimworldModReleaseTool.csproj.FileListAbsolute.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RimworldModReleaseTool/obj/Debug/RimworldModReleaseTool.csprojAssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/RimworldModReleaseTool/obj/Debug/RimworldModReleaseTool.csprojAssemblyReference.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RimworldModReleaseTool/obj/Debug/RimworldModReleaseTool.exe" beforeDir="false" afterPath="$PROJECT_DIR$/RimworldModReleaseTool/obj/Debug/RimworldModReleaseTool.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RimworldModReleaseTool/obj/Debug/RimworldModReleaseTool.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/RimworldModReleaseTool/obj/Debug/RimworldModReleaseTool.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RimworldModReleaseTool/packages.config" beforeDir="false" afterPath="$PROJECT_DIR$/RimworldModReleaseTool/packages.config" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RimworldModReleaseTool/steamdlls/steam_api.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/RimworldModReleaseTool/steamdlls/steam_api64.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/RimworldModReleaseTool/steamdlls/steam_appid.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/steamworks/Steamworks.NET.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/RimworldModReleaseTool/ReleaseSettings.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RimworldModReleaseTool/ReleaseSettings.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RimworldModReleaseTool/SteamUtility.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RimworldModReleaseTool/SteamUtility.cs" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -38,23 +23,24 @@
     <session id="-56343360">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="4" />
+          <entry key="project.closed" value="5" />
           <entry key="project.open.time.5" value="1" />
           <entry key="project.open.time.6" value="3" />
           <entry key="project.open.time.7" value="1" />
-          <entry key="project.opened" value="5" />
+          <entry key="project.open.time.8" value="1" />
+          <entry key="project.opened" value="6" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="cs" value="1315" />
-          <entry key="csproj" value="355" />
+          <entry key="csproj" value="387" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="C#" value="1315" />
-          <entry key="Csproj" value="355" />
+          <entry key="Csproj" value="387" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
@@ -63,6 +49,7 @@
           <entry key="Csproj" value="3" />
           <entry key="MsBuild targets file" value="3" />
           <entry key="Solution File" value="1" />
+          <entry key="XML" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -71,144 +58,127 @@
           <entry key="csproj" value="3" />
           <entry key="sln" value="1" />
           <entry key="targets" value="3" />
+          <entry key="xml" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.js.language.service.starts" />
     </session>
+  </component>
+  <component name="FavoritesManager">
+    <favorites_list name="RimworldModReleaseTool" />
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/RimworldModReleaseTool/Program.cs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="279">
-              <caret line="99" column="19" selection-start-line="99" selection-start-column="19" selection-end-line="99" selection-end-column="19" />
+            <state relative-caret-position="340">
+              <caret line="20" column="5" selection-start-line="20" selection-start-column="5" selection-end-line="20" selection-end-column="5" />
               <folding>
-                <marker date="1536772734138" expanded="false" signature="6:613" ph="..." />
-                <marker date="1536772734138" expanded="true" signature="676:25762" ph="{...}" />
-                <marker date="1536772734138" expanded="true" signature="705:25760" ph="{...}" />
-                <marker date="1536772734138" expanded="true" signature="799:1419" ph="{...}" />
-                <marker date="1536772734138" expanded="true" signature="981:1159" ph="{...}" />
-                <marker date="1536772734138" expanded="true" signature="1206:1380" ph="{...}" />
-                <marker date="1536772734138" expanded="true" signature="1475:3544" ph="{...}" />
-                <marker date="1536772734138" expanded="true" signature="1843:2135" ph="/* Automating the RimWorld Dev Process ... */" />
-                <marker date="1536772734138" expanded="true" signature="2676:2763" ph="/* Publishing ... */" />
-                <marker date="1536772734138" expanded="true" signature="2979:3061" ph="/* 3. Update Patreon ... */" />
-                <marker date="1536772734138" expanded="true" signature="3186:3296" ph="/* 4. Update Ludeon ... */" />
-                <marker date="1536772734138" expanded="true" signature="3593:4179" ph="{...}" />
-                <marker date="1536772734138" expanded="true" signature="3677:4168" ph="{...}" />
-                <marker date="1536772734138" expanded="true" signature="3941:4154" ph="{...}" />
-                <marker date="1536772734138" expanded="true" signature="4279:4465" ph="{...}" />
-                <marker date="1536772734138" expanded="true" signature="4362:4455" ph="{...}" />
-                <marker date="1536772734138" expanded="true" signature="4585:6062" ph="{...}" />
-                <marker date="1536772734138" expanded="true" signature="4673:6052" ph="{...}" />
-                <marker date="1536772734138" expanded="true" signature="4707:5790" ph="{...}" />
-                <marker date="1536772734138" expanded="true" signature="4867:5464" ph="{...}" />
-                <marker date="1536772734138" expanded="true" signature="5002:5442" ph="{...}" />
-                <marker date="1536772734138" expanded="true" signature="5294:5416" ph="{...}" />
-                <marker date="1536772734138" expanded="true" signature="5670:5772" ph="{...}" />
-                <marker date="1536772734138" expanded="true" signature="5828:5916" ph="{...}" />
-                <marker date="1536772734138" expanded="true" signature="5940:6021" ph="{...}" />
-                <marker date="1536772734138" expanded="true" signature="6161:6389" ph="{...}" />
-                <marker date="1536772734138" expanded="true" signature="6287:6379" ph="{...}" />
-                <marker date="1536772734138" expanded="true" signature="6459:7547" ph="{...}" />
-                <marker date="1536772734138" expanded="true" signature="6551:6988" ph="{...}" />
-                <marker date="1536772734138" expanded="true" signature="6900:6974" ph="{...}" />
-                <marker date="1536772734138" expanded="true" signature="7018:7510" ph="{...}" />
-                <marker date="1536772734138" expanded="true" signature="7350:7496" ph="{...}" />
-                <marker date="1536772734138" expanded="true" signature="7615:8914" ph="{...}" />
-                <marker date="1536772734138" expanded="true" signature="7707:8106" ph="{...}" />
-                <marker date="1536772734138" expanded="true" signature="8136:8877" ph="{...}" />
-                <marker date="1536772734138" expanded="true" signature="8464:8863" ph="{...}" />
-                <marker date="1536772734138" expanded="true" signature="8578:8720" ph="{...}" />
-                <marker date="1536772734138" expanded="true" signature="8993:9829" ph="{...}" />
-                <marker date="1536772734138" expanded="true" signature="9313:9500" ph="{...}" />
-                <marker date="1536772734138" expanded="true" signature="9699:9778" ph="{...}" />
-                <marker date="1536772734138" expanded="true" signature="9929:13919" ph="{...}" />
-                <marker date="1536772734138" expanded="true" signature="9983:13908" ph="{...}" />
-                <marker date="1536772734138" expanded="true" signature="10712:10998" ph="/* s.AppendLine(&quot;Greetings fellow RimWorlder,&quot;); ... */" />
-                <marker date="1536772734138" expanded="true" signature="12531:12844" ph="/* s.AppendLine(&quot;[center][tt]Greetings fellow RimWorlder,&quot;); ... */" />
-                <marker date="1536772734138" expanded="true" signature="13649:13731" ph="{...}" />
-                <marker date="1536772734138" expanded="true" signature="14021:14614" ph="{...}" />
-                <marker date="1536772734138" expanded="true" signature="14135:14604" ph="{...}" />
-                <marker date="1536772734138" expanded="true" signature="14715:15180" ph="{...}" />
-                <marker date="1536772734138" expanded="true" signature="14820:15170" ph="{...}" />
-                <marker date="1536772734138" expanded="true" signature="14969:15156" ph="/* GitHubUtility.RunGitProcessWithArgs(updateInfo.Path, @&quot;commit &quot; + updateInfo.Description); ... */" />
-                <marker date="1536772734138" expanded="true" signature="15234:16045" ph="{...}" />
-                <marker date="1536772734138" expanded="true" signature="15354:16035" ph="{...}" />
-                <marker date="1536772734138" expanded="true" signature="15504:16021" ph="{...}" />
-                <marker date="1536772734138" expanded="true" signature="15714:16003" ph="{...}" />
-                <marker date="1536772734138" expanded="true" signature="16156:18688" ph="{...}" />
-                <marker date="1536772734138" expanded="true" signature="16259:18678" ph="{...}" />
-                <marker date="1536772734138" expanded="true" signature="16797:16872" ph="{...}" />
-                <marker date="1536772734138" expanded="true" signature="17073:18595" ph="{...}" />
-                <marker date="1536772734138" expanded="true" signature="17189:18577" ph="{...}" />
-                <marker date="1536772734138" expanded="true" signature="17279:17677" ph="{...}" />
-                <marker date="1536772734138" expanded="true" signature="17457:17651" ph="{...}" />
-                <marker date="1536772734138" expanded="true" signature="17932:18555" ph="{...}" />
-                <marker date="1536772734138" expanded="true" signature="18361:18482" ph="{...}" />
-                <marker date="1536772734138" expanded="true" signature="18798:19957" ph="{...}" />
-                <marker date="1536772734138" expanded="true" signature="18991:19404" ph="{...}" />
-                <marker date="1536772734138" expanded="true" signature="19175:19310" ph="{...}" />
-                <marker date="1536772734138" expanded="true" signature="19510:19914" ph="{...}" />
-                <marker date="1536772734138" expanded="true" signature="19619:19749" ph="{...}" />
-                <marker date="1536772734138" expanded="true" signature="20050:22084" ph="{...}" />
-                <marker date="1536772734138" expanded="true" signature="20101:20242" ph="{...}" />
-                <marker date="1536772734138" expanded="true" signature="20342:20400" ph="{...}" />
-                <marker date="1536772734138" expanded="true" signature="20487:22015" ph="{...}" />
-                <marker date="1536772734138" expanded="true" signature="20592:20662" ph="{...}" />
-                <marker date="1536772734138" expanded="true" signature="20683:20865" ph="{...}" />
-                <marker date="1536772734138" expanded="true" signature="20749:20847" ph="{...}" />
-                <marker date="1536772734138" expanded="true" signature="20957:21589" ph="{...}" />
-                <marker date="1536772734138" expanded="true" signature="21301:21429" ph="{...}" />
-                <marker date="1536772734138" expanded="true" signature="21450:21571" ph="/* Process.Start(Assembly.GetExecutingAssembly().Location, &quot;\&quot;&quot; + path + &quot;\&quot;&quot;); ... */" />
-                <marker date="1536772734138" expanded="true" signature="21633:21719" ph="{...}" />
-                <marker date="1536772734138" expanded="true" signature="22190:25258" ph="{...}" />
-                <marker date="1536772734138" expanded="true" signature="22301:25248" ph="{...}" />
-                <marker date="1536772734138" expanded="true" signature="24086:25063" ph="/* var json = &quot;{&quot; + ... */" />
-                <marker date="1536772734138" expanded="true" signature="25315:25752" ph="{...}" />
-                <marker date="1536772734138" expanded="true" signature="25460:25553" ph="{...}" />
-                <marker date="1536772734138" expanded="true" signature="25618:25716" ph="{...}" />
+                <marker date="1536776525772" expanded="true" signature="6:340" ph="..." />
+                <marker date="1536776525772" expanded="true" signature="404:24291" ph="{...}" />
+                <marker date="1536776525772" expanded="true" signature="433:24289" ph="{...}" />
+                <marker date="1536776525772" expanded="true" signature="527:1137" ph="{...}" />
+                <marker date="1536776525772" expanded="true" signature="710:888" ph="{...}" />
+                <marker date="1536776525772" expanded="true" signature="923:1097" ph="{...}" />
+                <marker date="1536776525772" expanded="true" signature="1185:3170" ph="{...}" />
+                <marker date="1536776525772" expanded="true" signature="1535:1815" ph="/* Automating the RimWorld Dev Process ... */" />
+                <marker date="1536776525772" expanded="true" signature="2326:2413" ph="/* Publishing ... */" />
+                <marker date="1536776525772" expanded="true" signature="2629:2711" ph="/* 3. Update Patreon ... */" />
+                <marker date="1536776525772" expanded="true" signature="2836:2946" ph="/* 4. Update Ludeon ... */" />
+                <marker date="1536776525772" expanded="true" signature="3219:3824" ph="{...}" />
+                <marker date="1536776525772" expanded="true" signature="3302:3813" ph="{...}" />
+                <marker date="1536776525772" expanded="true" signature="3572:3799" ph="{...}" />
+                <marker date="1536776525772" expanded="true" signature="3924:4058" ph="{...}" />
+                <marker date="1536776525772" expanded="true" signature="4178:5470" ph="{...}" />
+                <marker date="1536776525772" expanded="true" signature="4278:5233" ph="{...}" />
+                <marker date="1536776525772" expanded="true" signature="4551:4982" ph="{...}" />
+                <marker date="1536776525772" expanded="true" signature="4834:4956" ph="{...}" />
+                <marker date="1536776525772" expanded="true" signature="5269:5355" ph="{...}" />
+                <marker date="1536776525772" expanded="true" signature="5379:5460" ph="{...}" />
+                <marker date="1536776525772" expanded="true" signature="5569:5761" ph="{...}" />
+                <marker date="1536776525772" expanded="true" signature="5831:6953" ph="{...}" />
+                <marker date="1536776525772" expanded="true" signature="5920:6321" ph="{...}" />
+                <marker date="1536776525772" expanded="true" signature="6352:6915" ph="{...}" />
+                <marker date="1536776525772" expanded="true" signature="6581:6711" ph="{...}" />
+                <marker date="1536776525772" expanded="true" signature="6759:6901" ph="{...}" />
+                <marker date="1536776525772" expanded="true" signature="7021:8374" ph="{...}" />
+                <marker date="1536776525772" expanded="true" signature="7110:7509" ph="{...}" />
+                <marker date="1536776525772" expanded="true" signature="7540:8336" ph="{...}" />
+                <marker date="1536776525772" expanded="true" signature="7765:7895" ph="{...}" />
+                <marker date="1536776525772" expanded="true" signature="7943:8322" ph="{...}" />
+                <marker date="1536776525772" expanded="true" signature="8057:8199" ph="{...}" />
+                <marker date="1536776525772" expanded="true" signature="8453:9290" ph="{...}" />
+                <marker date="1536776525772" expanded="true" signature="8773:8960" ph="{...}" />
+                <marker date="1536776525772" expanded="true" signature="9159:9238" ph="{...}" />
+                <marker date="1536776525772" expanded="true" signature="9390:13194" ph="{...}" />
+                <marker date="1536776525772" expanded="true" signature="9444:13184" ph="{...}" />
+                <marker date="1536776525772" expanded="true" signature="10106:10392" ph="/* s.AppendLine(&quot;Greetings fellow RimWorlder,&quot;); ... */" />
+                <marker date="1536776525772" expanded="true" signature="11889:12202" ph="/* s.AppendLine(&quot;[center][tt]Greetings fellow RimWorlder,&quot;); ... */" />
+                <marker date="1536776525772" expanded="true" signature="13296:13915" ph="{...}" />
+                <marker date="1536776525772" expanded="true" signature="13396:13905" ph="{...}" />
+                <marker date="1536776525772" expanded="true" signature="14016:14248" ph="{...}" />
+                <marker date="1536776525772" expanded="true" signature="14302:15101" ph="{...}" />
+                <marker date="1536776525772" expanded="true" signature="14416:15091" ph="{...}" />
+                <marker date="1536776525772" expanded="true" signature="14565:15077" ph="{...}" />
+                <marker date="1536776525772" expanded="true" signature="14766:15059" ph="{...}" />
+                <marker date="1536776525772" expanded="true" signature="15212:17659" ph="{...}" />
+                <marker date="1536776525772" expanded="true" signature="15314:17649" ph="{...}" />
+                <marker date="1536776525772" expanded="true" signature="16059:17566" ph="{...}" />
+                <marker date="1536776525772" expanded="true" signature="16168:17548" ph="{...}" />
+                <marker date="1536776525772" expanded="true" signature="16258:16656" ph="{...}" />
+                <marker date="1536776525772" expanded="true" signature="16436:16630" ph="{...}" />
+                <marker date="1536776525772" expanded="true" signature="16902:17526" ph="{...}" />
+                <marker date="1536776525772" expanded="true" signature="17331:17452" ph="{...}" />
+                <marker date="1536776525772" expanded="true" signature="17769:18914" ph="{...}" />
+                <marker date="1536776525772" expanded="true" signature="17950:18363" ph="{...}" />
+                <marker date="1536776525772" expanded="true" signature="18134:18269" ph="{...}" />
+                <marker date="1536776525772" expanded="true" signature="18466:18870" ph="{...}" />
+                <marker date="1536776525772" expanded="true" signature="18575:18705" ph="{...}" />
+                <marker date="1536776525772" expanded="true" signature="19007:20726" ph="{...}" />
+                <marker date="1536776525772" expanded="true" signature="19058:19199" ph="{...}" />
+                <marker date="1536776525772" expanded="true" signature="19400:20657" ph="{...}" />
+                <marker date="1536776525772" expanded="true" signature="19539:19653" ph="{...}" />
+                <marker date="1536776525772" expanded="true" signature="19745:20286" ph="{...}" />
+                <marker date="1536776525772" expanded="true" signature="20147:20268" ph="/* Process.Start(Assembly.GetExecutingAssembly().Location, &quot;\&quot;&quot; + path + &quot;\&quot;&quot;); ... */" />
+                <marker date="1536776525772" expanded="true" signature="20832:23832" ph="{...}" />
+                <marker date="1536776525772" expanded="true" signature="20943:23822" ph="{...}" />
+                <marker date="1536776525772" expanded="true" signature="22660:23637" ph="/* var json = &quot;{&quot; + ... */" />
+                <marker date="1536776525772" expanded="true" signature="23889:24283" ph="{...}" />
+                <marker date="1536776525772" expanded="true" signature="24148:24246" ph="{...}" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/RimworldModReleaseTool/Properties/AssemblyInfo.cs">
+        <entry file="file://$PROJECT_DIR$/RimworldModReleaseTool/dlls/System.Diagnostics.DiagnosticSource.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-102">
-              <folding>
-                <marker date="1536716278902" expanded="true" signature="6:62" ph="..." />
-                <marker date="1536716278902" expanded="true" signature="64:251" ph="/* General Information about an assembly is controlled through the following ... */" />
-                <marker date="1536716278902" expanded="true" signature="582:792" ph="/* Setting ComVisible to false makes the types in this assembly not visible ... */" />
-                <marker date="1536716278902" expanded="true" signature="967:1294" ph="/* Version information for an assembly consists of the following four values: ... */" />
-              </folding>
+            <state relative-caret-position="189">
+              <caret line="152" column="49" selection-start-line="152" selection-start-column="49" selection-end-line="152" selection-end-column="49" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/RimworldModReleaseTool/RimworldModReleaseTool.csproj">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="341">
-              <caret line="69" column="39" lean-forward="true" selection-start-line="69" selection-start-column="39" selection-end-line="69" selection-end-column="39" />
+            <state relative-caret-position="561">
+              <caret line="33" column="18" selection-start-line="33" selection-start-column="18" selection-end-line="33" selection-end-column="18" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/RimworldModReleaseTool.sln">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-34" />
-          </provider>
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/RimworldModReleaseTool/PatreonUtility.cs">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="68">
-              <caret line="4" column="26" selection-start-line="4" selection-start-column="26" selection-end-line="4" selection-end-column="26" />
+              <caret line="6" column="11" selection-start-line="6" selection-start-column="11" selection-end-line="6" selection-end-column="11" />
             </state>
           </provider>
         </entry>
@@ -216,8 +186,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/RimworldModReleaseTool/ReleaseSettings.cs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="6" column="17" selection-start-line="6" selection-start-column="17" selection-end-line="6" selection-end-column="17" />
+            <state relative-caret-position="119">
+              <caret line="7" column="50" selection-start-line="7" selection-start-column="50" selection-end-line="7" selection-end-column="50" />
             </state>
           </provider>
         </entry>
@@ -225,8 +195,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/RimworldModReleaseTool/Mod.cs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="177">
-              <caret line="76" column="30" selection-start-line="76" selection-start-column="30" selection-end-line="76" selection-end-column="30" />
+            <state relative-caret-position="1360">
+              <caret line="80" column="8" selection-start-line="80" selection-start-column="8" selection-end-line="80" selection-end-column="8" />
             </state>
           </provider>
         </entry>
@@ -234,8 +204,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/RimworldModReleaseTool/SteamUtility.cs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="279">
-              <caret line="135" column="33" selection-start-line="135" selection-start-column="33" selection-end-line="135" selection-end-column="33" />
+            <state relative-caret-position="2278">
+              <caret line="134" column="1" selection-start-line="134" selection-start-column="1" selection-end-line="134" selection-end-column="1" />
             </state>
           </provider>
         </entry>
@@ -244,16 +214,32 @@
         <entry file="file://$PROJECT_DIR$/RimworldModReleaseTool/LudeonUtility.cs">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="119">
-              <caret line="7" column="9" selection-start-line="7" selection-start-column="9" selection-end-line="7" selection-end-column="9" />
+              <caret line="9" column="1" selection-start-line="9" selection-start-column="1" selection-end-line="9" selection-end-column="1" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/RimworldModReleaseTool/GitHubUtility.cs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="177">
-              <caret line="48" selection-start-line="48" selection-end-line="58" selection-end-column="25" />
+            <state relative-caret-position="302">
+              <caret line="109" column="46" lean-forward="true" selection-start-line="109" selection-start-column="46" selection-end-line="109" selection-end-column="46" />
+              <folding>
+                <marker date="1536776525751" expanded="false" signature="6:136" ph="..." />
+                <marker date="1536776525751" expanded="true" signature="170:4500" ph="{...}" />
+                <marker date="1536776525751" expanded="true" signature="210:4498" ph="{...}" />
+                <marker date="1536776525751" expanded="true" signature="447:646" ph="{...}" />
+                <marker date="1536776525751" expanded="true" signature="693:1223" ph="{...}" />
+                <marker date="1536776525751" expanded="true" signature="939:1046" ph="{...}" />
+                <marker date="1536776525751" expanded="true" signature="1078:1213" ph="{...}" />
+                <marker date="1536776525751" expanded="true" signature="1312:1933" ph="{...}" />
+                <marker date="1536776525751" expanded="true" signature="1379:1923" ph="{...}" />
+                <marker date="1536776525751" expanded="true" signature="2070:2637" ph="{...}" />
+                <marker date="1536776525751" expanded="true" signature="2292:2384" ph="{...}" />
+                <marker date="1536776525751" expanded="true" signature="2785:4492" ph="{...}" />
+                <marker date="1536776525751" expanded="true" signature="3487:3831" ph="{...}" />
+                <marker date="1536776525751" expanded="true" signature="4184:4341" ph="{...}" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -281,17 +267,17 @@
       <find>AutoGenerate</find>
       <find>diag</find>
       <find>Private&gt;true</find>
-      <find>Private&gt;false</find>
       <find>DiagnosticSour</find>
       <find>Octokit</find>
       <find>Private&gt;fal</find>
+      <find>Private&gt;false</find>
     </findStrings>
     <replaceStrings>
       <replace>bool Handle</replace>
       <replace>bool</replace>
       <replace>info.Client</replace>
-      <replace>Private&gt;true</replace>
       <replace>Private&gt;false</replace>
+      <replace>Private&gt;true</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -326,8 +312,8 @@
         <option value="$PROJECT_DIR$/RimworldModReleaseTool/ModUpdateInfo.cs" />
         <option value="$PROJECT_DIR$/RimworldModReleaseTool/GitHubUtility.cs" />
         <option value="$PROJECT_DIR$/RimworldModReleaseTool/Mod.cs" />
-        <option value="$PROJECT_DIR$/RimworldModReleaseTool/Program.cs" />
         <option value="$PROJECT_DIR$/RimworldModReleaseTool/RimworldModReleaseTool.csproj" />
+        <option value="$PROJECT_DIR$/RimworldModReleaseTool/Program.cs" />
       </list>
     </option>
   </component>
@@ -467,12 +453,13 @@
       <workItem from="1536718468185" duration="187000" />
       <workItem from="1536718733391" duration="303000" />
       <workItem from="1536753222032" duration="166000" />
-      <workItem from="1536756321971" duration="15582000" />
+      <workItem from="1536756321971" duration="16575000" />
+      <workItem from="1536776448946" duration="311000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="117776000" />
+    <option name="totallyTimeSpent" value="119080000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -485,24 +472,26 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19509594" />
-      <window_info id="Structure" order="1" weight="0.24979983" />
-      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19509594" />
+      <window_info id="Structure" order="1" sideWeight="0.49902153" weight="0.2521322" />
+      <window_info id="Favorites" order="2" sideWeight="0.50097847" side_tool="true" weight="0.24946696" />
+      <window_info active="true" anchor="bottom" id="Inspection Results" sideWeight="0.49946696" visible="true" weight="0.32936078" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49946696" weight="0.20693392" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.48134327" visible="true" weight="0.44637054" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.48027718" weight="0.44637054" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="NuGet" order="7" sideWeight="0.49733475" weight="0.32827735" />
+      <window_info anchor="bottom" id="NuGet" order="7" sideWeight="0.4968017" weight="0.32827735" />
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Unit Tests" order="9" />
       <window_info anchor="bottom" id="Terminal" order="10" />
-      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.51865673" side_tool="true" visible="true" weight="0.44637054" />
+      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.50053304" side_tool="true" visible="true" weight="0.32936078" />
       <window_info anchor="bottom" id="Version Control" order="12" sideWeight="0.49946696" weight="0.32936078" />
-      <window_info anchor="bottom" id="Build" order="13" sideWeight="0.48081023" weight="0.37486458" />
+      <window_info anchor="bottom" id="Build" order="13" sideWeight="0.47974414" weight="0.37486458" />
       <window_info anchor="bottom" id="Database Changes" order="14" show_stripe_button="false" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -590,80 +579,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="459">
           <caret line="34" column="36" selection-start-line="34" selection-start-column="36" selection-end-line="34" selection-end-column="36" />
-          <folding>
-            <marker date="1536716278900" expanded="false" signature="6:177" ph="..." />
-            <marker date="1536716278900" expanded="true" signature="244:10033" ph="{...}" />
-            <marker date="1536716278900" expanded="true" signature="2279:9721" ph="{...}" />
-            <marker date="1536716278900" expanded="true" signature="2876:3268" ph="{...}" />
-            <marker date="1536716278900" expanded="true" signature="3022:3254" ph="{...}" />
-            <marker date="1536716278900" expanded="true" signature="3347:4094" ph="{...}" />
-            <marker date="1536716278900" expanded="true" signature="3475:3989" ph="{...}" />
-            <marker date="1536716278900" expanded="true" signature="3596:3971" ph="{...}" />
-            <marker date="1536716278900" expanded="true" signature="4174:4928" ph="{...}" />
-            <marker date="1536716278900" expanded="true" signature="4302:4823" ph="{...}" />
-            <marker date="1536716278900" expanded="true" signature="4423:4805" ph="{...}" />
-            <marker date="1536716278900" expanded="true" signature="5006:5749" ph="{...}" />
-            <marker date="1536716278900" expanded="true" signature="5131:5646" ph="{...}" />
-            <marker date="1536716278900" expanded="true" signature="5251:5628" ph="{...}" />
-            <marker date="1536716278900" expanded="true" signature="5840:6717" ph="{...}" />
-            <marker date="1536716278900" expanded="true" signature="5978:6512" ph="{...}" />
-            <marker date="1536716278900" expanded="true" signature="6104:6494" ph="{...}" />
-            <marker date="1536716278900" expanded="true" signature="6533:6703" ph="{...}" />
-            <marker date="1536716278900" expanded="true" signature="6906:6979" ph="/* Console.WriteLine(modName); ... */" />
-            <marker date="1536716278900" expanded="true" signature="7462:9711" ph="{...}" />
-            <marker date="1536716278900" expanded="true" signature="7594:7707" ph="{...}" />
-            <marker date="1536716278900" expanded="true" signature="7728:8315" ph="{...}" />
-            <marker date="1536716278900" expanded="true" signature="8682:9315" ph="{...}" />
-            <marker date="1536716278900" expanded="true" signature="9801:10027" ph="{...}" />
-          </folding>
         </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/RimworldModReleaseTool/LudeonUtility.cs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="9" selection-start-line="7" selection-start-column="9" selection-end-line="7" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/RimworldModReleaseTool/PatreonUtility.cs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="26" selection-start-line="4" selection-start-column="26" selection-end-line="4" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/RimworldModReleaseTool/Mod.cs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="177">
-          <caret line="76" column="30" selection-start-line="76" selection-start-column="30" selection-end-line="76" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/RimworldModReleaseTool/SteamUtility.cs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="279">
-          <caret line="135" column="33" selection-start-line="135" selection-start-column="33" selection-end-line="135" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/RimworldModReleaseTool/GitHubUtility.cs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="177">
-          <caret line="48" selection-start-line="48" selection-end-line="58" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/RimworldModReleaseTool/ReleaseSettings.cs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="6" column="17" selection-start-line="6" selection-start-column="17" selection-end-line="6" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/RimworldModReleaseTool.sln">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-34" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../../../../../../Microsoft Visual Studio/2017/Community/MSBuild/15.0/Bin/Microsoft.Common.CurrentVersion.targets">
@@ -675,101 +591,87 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/RimworldModReleaseTool/Program.cs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="279">
-          <caret line="99" column="19" selection-start-line="99" selection-start-column="19" selection-end-line="99" selection-end-column="19" />
+        <state relative-caret-position="340">
+          <caret line="20" column="5" selection-start-line="20" selection-start-column="5" selection-end-line="20" selection-end-column="5" />
           <folding>
-            <marker date="1536772734138" expanded="false" signature="6:613" ph="..." />
-            <marker date="1536772734138" expanded="true" signature="676:25762" ph="{...}" />
-            <marker date="1536772734138" expanded="true" signature="705:25760" ph="{...}" />
-            <marker date="1536772734138" expanded="true" signature="799:1419" ph="{...}" />
-            <marker date="1536772734138" expanded="true" signature="981:1159" ph="{...}" />
-            <marker date="1536772734138" expanded="true" signature="1206:1380" ph="{...}" />
-            <marker date="1536772734138" expanded="true" signature="1475:3544" ph="{...}" />
-            <marker date="1536772734138" expanded="true" signature="1843:2135" ph="/* Automating the RimWorld Dev Process ... */" />
-            <marker date="1536772734138" expanded="true" signature="2676:2763" ph="/* Publishing ... */" />
-            <marker date="1536772734138" expanded="true" signature="2979:3061" ph="/* 3. Update Patreon ... */" />
-            <marker date="1536772734138" expanded="true" signature="3186:3296" ph="/* 4. Update Ludeon ... */" />
-            <marker date="1536772734138" expanded="true" signature="3593:4179" ph="{...}" />
-            <marker date="1536772734138" expanded="true" signature="3677:4168" ph="{...}" />
-            <marker date="1536772734138" expanded="true" signature="3941:4154" ph="{...}" />
-            <marker date="1536772734138" expanded="true" signature="4279:4465" ph="{...}" />
-            <marker date="1536772734138" expanded="true" signature="4362:4455" ph="{...}" />
-            <marker date="1536772734138" expanded="true" signature="4585:6062" ph="{...}" />
-            <marker date="1536772734138" expanded="true" signature="4673:6052" ph="{...}" />
-            <marker date="1536772734138" expanded="true" signature="4707:5790" ph="{...}" />
-            <marker date="1536772734138" expanded="true" signature="4867:5464" ph="{...}" />
-            <marker date="1536772734138" expanded="true" signature="5002:5442" ph="{...}" />
-            <marker date="1536772734138" expanded="true" signature="5294:5416" ph="{...}" />
-            <marker date="1536772734138" expanded="true" signature="5670:5772" ph="{...}" />
-            <marker date="1536772734138" expanded="true" signature="5828:5916" ph="{...}" />
-            <marker date="1536772734138" expanded="true" signature="5940:6021" ph="{...}" />
-            <marker date="1536772734138" expanded="true" signature="6161:6389" ph="{...}" />
-            <marker date="1536772734138" expanded="true" signature="6287:6379" ph="{...}" />
-            <marker date="1536772734138" expanded="true" signature="6459:7547" ph="{...}" />
-            <marker date="1536772734138" expanded="true" signature="6551:6988" ph="{...}" />
-            <marker date="1536772734138" expanded="true" signature="6900:6974" ph="{...}" />
-            <marker date="1536772734138" expanded="true" signature="7018:7510" ph="{...}" />
-            <marker date="1536772734138" expanded="true" signature="7350:7496" ph="{...}" />
-            <marker date="1536772734138" expanded="true" signature="7615:8914" ph="{...}" />
-            <marker date="1536772734138" expanded="true" signature="7707:8106" ph="{...}" />
-            <marker date="1536772734138" expanded="true" signature="8136:8877" ph="{...}" />
-            <marker date="1536772734138" expanded="true" signature="8464:8863" ph="{...}" />
-            <marker date="1536772734138" expanded="true" signature="8578:8720" ph="{...}" />
-            <marker date="1536772734138" expanded="true" signature="8993:9829" ph="{...}" />
-            <marker date="1536772734138" expanded="true" signature="9313:9500" ph="{...}" />
-            <marker date="1536772734138" expanded="true" signature="9699:9778" ph="{...}" />
-            <marker date="1536772734138" expanded="true" signature="9929:13919" ph="{...}" />
-            <marker date="1536772734138" expanded="true" signature="9983:13908" ph="{...}" />
-            <marker date="1536772734138" expanded="true" signature="10712:10998" ph="/* s.AppendLine(&quot;Greetings fellow RimWorlder,&quot;); ... */" />
-            <marker date="1536772734138" expanded="true" signature="12531:12844" ph="/* s.AppendLine(&quot;[center][tt]Greetings fellow RimWorlder,&quot;); ... */" />
-            <marker date="1536772734138" expanded="true" signature="13649:13731" ph="{...}" />
-            <marker date="1536772734138" expanded="true" signature="14021:14614" ph="{...}" />
-            <marker date="1536772734138" expanded="true" signature="14135:14604" ph="{...}" />
-            <marker date="1536772734138" expanded="true" signature="14715:15180" ph="{...}" />
-            <marker date="1536772734138" expanded="true" signature="14820:15170" ph="{...}" />
-            <marker date="1536772734138" expanded="true" signature="14969:15156" ph="/* GitHubUtility.RunGitProcessWithArgs(updateInfo.Path, @&quot;commit &quot; + updateInfo.Description); ... */" />
-            <marker date="1536772734138" expanded="true" signature="15234:16045" ph="{...}" />
-            <marker date="1536772734138" expanded="true" signature="15354:16035" ph="{...}" />
-            <marker date="1536772734138" expanded="true" signature="15504:16021" ph="{...}" />
-            <marker date="1536772734138" expanded="true" signature="15714:16003" ph="{...}" />
-            <marker date="1536772734138" expanded="true" signature="16156:18688" ph="{...}" />
-            <marker date="1536772734138" expanded="true" signature="16259:18678" ph="{...}" />
-            <marker date="1536772734138" expanded="true" signature="16797:16872" ph="{...}" />
-            <marker date="1536772734138" expanded="true" signature="17073:18595" ph="{...}" />
-            <marker date="1536772734138" expanded="true" signature="17189:18577" ph="{...}" />
-            <marker date="1536772734138" expanded="true" signature="17279:17677" ph="{...}" />
-            <marker date="1536772734138" expanded="true" signature="17457:17651" ph="{...}" />
-            <marker date="1536772734138" expanded="true" signature="17932:18555" ph="{...}" />
-            <marker date="1536772734138" expanded="true" signature="18361:18482" ph="{...}" />
-            <marker date="1536772734138" expanded="true" signature="18798:19957" ph="{...}" />
-            <marker date="1536772734138" expanded="true" signature="18991:19404" ph="{...}" />
-            <marker date="1536772734138" expanded="true" signature="19175:19310" ph="{...}" />
-            <marker date="1536772734138" expanded="true" signature="19510:19914" ph="{...}" />
-            <marker date="1536772734138" expanded="true" signature="19619:19749" ph="{...}" />
-            <marker date="1536772734138" expanded="true" signature="20050:22084" ph="{...}" />
-            <marker date="1536772734138" expanded="true" signature="20101:20242" ph="{...}" />
-            <marker date="1536772734138" expanded="true" signature="20342:20400" ph="{...}" />
-            <marker date="1536772734138" expanded="true" signature="20487:22015" ph="{...}" />
-            <marker date="1536772734138" expanded="true" signature="20592:20662" ph="{...}" />
-            <marker date="1536772734138" expanded="true" signature="20683:20865" ph="{...}" />
-            <marker date="1536772734138" expanded="true" signature="20749:20847" ph="{...}" />
-            <marker date="1536772734138" expanded="true" signature="20957:21589" ph="{...}" />
-            <marker date="1536772734138" expanded="true" signature="21301:21429" ph="{...}" />
-            <marker date="1536772734138" expanded="true" signature="21450:21571" ph="/* Process.Start(Assembly.GetExecutingAssembly().Location, &quot;\&quot;&quot; + path + &quot;\&quot;&quot;); ... */" />
-            <marker date="1536772734138" expanded="true" signature="21633:21719" ph="{...}" />
-            <marker date="1536772734138" expanded="true" signature="22190:25258" ph="{...}" />
-            <marker date="1536772734138" expanded="true" signature="22301:25248" ph="{...}" />
-            <marker date="1536772734138" expanded="true" signature="24086:25063" ph="/* var json = &quot;{&quot; + ... */" />
-            <marker date="1536772734138" expanded="true" signature="25315:25752" ph="{...}" />
-            <marker date="1536772734138" expanded="true" signature="25460:25553" ph="{...}" />
-            <marker date="1536772734138" expanded="true" signature="25618:25716" ph="{...}" />
+            <marker date="1536776525772" expanded="true" signature="6:340" ph="..." />
+            <marker date="1536776525772" expanded="true" signature="404:24291" ph="{...}" />
+            <marker date="1536776525772" expanded="true" signature="433:24289" ph="{...}" />
+            <marker date="1536776525772" expanded="true" signature="527:1137" ph="{...}" />
+            <marker date="1536776525772" expanded="true" signature="710:888" ph="{...}" />
+            <marker date="1536776525772" expanded="true" signature="923:1097" ph="{...}" />
+            <marker date="1536776525772" expanded="true" signature="1185:3170" ph="{...}" />
+            <marker date="1536776525772" expanded="true" signature="1535:1815" ph="/* Automating the RimWorld Dev Process ... */" />
+            <marker date="1536776525772" expanded="true" signature="2326:2413" ph="/* Publishing ... */" />
+            <marker date="1536776525772" expanded="true" signature="2629:2711" ph="/* 3. Update Patreon ... */" />
+            <marker date="1536776525772" expanded="true" signature="2836:2946" ph="/* 4. Update Ludeon ... */" />
+            <marker date="1536776525772" expanded="true" signature="3219:3824" ph="{...}" />
+            <marker date="1536776525772" expanded="true" signature="3302:3813" ph="{...}" />
+            <marker date="1536776525772" expanded="true" signature="3572:3799" ph="{...}" />
+            <marker date="1536776525772" expanded="true" signature="3924:4058" ph="{...}" />
+            <marker date="1536776525772" expanded="true" signature="4178:5470" ph="{...}" />
+            <marker date="1536776525772" expanded="true" signature="4278:5233" ph="{...}" />
+            <marker date="1536776525772" expanded="true" signature="4551:4982" ph="{...}" />
+            <marker date="1536776525772" expanded="true" signature="4834:4956" ph="{...}" />
+            <marker date="1536776525772" expanded="true" signature="5269:5355" ph="{...}" />
+            <marker date="1536776525772" expanded="true" signature="5379:5460" ph="{...}" />
+            <marker date="1536776525772" expanded="true" signature="5569:5761" ph="{...}" />
+            <marker date="1536776525772" expanded="true" signature="5831:6953" ph="{...}" />
+            <marker date="1536776525772" expanded="true" signature="5920:6321" ph="{...}" />
+            <marker date="1536776525772" expanded="true" signature="6352:6915" ph="{...}" />
+            <marker date="1536776525772" expanded="true" signature="6581:6711" ph="{...}" />
+            <marker date="1536776525772" expanded="true" signature="6759:6901" ph="{...}" />
+            <marker date="1536776525772" expanded="true" signature="7021:8374" ph="{...}" />
+            <marker date="1536776525772" expanded="true" signature="7110:7509" ph="{...}" />
+            <marker date="1536776525772" expanded="true" signature="7540:8336" ph="{...}" />
+            <marker date="1536776525772" expanded="true" signature="7765:7895" ph="{...}" />
+            <marker date="1536776525772" expanded="true" signature="7943:8322" ph="{...}" />
+            <marker date="1536776525772" expanded="true" signature="8057:8199" ph="{...}" />
+            <marker date="1536776525772" expanded="true" signature="8453:9290" ph="{...}" />
+            <marker date="1536776525772" expanded="true" signature="8773:8960" ph="{...}" />
+            <marker date="1536776525772" expanded="true" signature="9159:9238" ph="{...}" />
+            <marker date="1536776525772" expanded="true" signature="9390:13194" ph="{...}" />
+            <marker date="1536776525772" expanded="true" signature="9444:13184" ph="{...}" />
+            <marker date="1536776525772" expanded="true" signature="10106:10392" ph="/* s.AppendLine(&quot;Greetings fellow RimWorlder,&quot;); ... */" />
+            <marker date="1536776525772" expanded="true" signature="11889:12202" ph="/* s.AppendLine(&quot;[center][tt]Greetings fellow RimWorlder,&quot;); ... */" />
+            <marker date="1536776525772" expanded="true" signature="13296:13915" ph="{...}" />
+            <marker date="1536776525772" expanded="true" signature="13396:13905" ph="{...}" />
+            <marker date="1536776525772" expanded="true" signature="14016:14248" ph="{...}" />
+            <marker date="1536776525772" expanded="true" signature="14302:15101" ph="{...}" />
+            <marker date="1536776525772" expanded="true" signature="14416:15091" ph="{...}" />
+            <marker date="1536776525772" expanded="true" signature="14565:15077" ph="{...}" />
+            <marker date="1536776525772" expanded="true" signature="14766:15059" ph="{...}" />
+            <marker date="1536776525772" expanded="true" signature="15212:17659" ph="{...}" />
+            <marker date="1536776525772" expanded="true" signature="15314:17649" ph="{...}" />
+            <marker date="1536776525772" expanded="true" signature="16059:17566" ph="{...}" />
+            <marker date="1536776525772" expanded="true" signature="16168:17548" ph="{...}" />
+            <marker date="1536776525772" expanded="true" signature="16258:16656" ph="{...}" />
+            <marker date="1536776525772" expanded="true" signature="16436:16630" ph="{...}" />
+            <marker date="1536776525772" expanded="true" signature="16902:17526" ph="{...}" />
+            <marker date="1536776525772" expanded="true" signature="17331:17452" ph="{...}" />
+            <marker date="1536776525772" expanded="true" signature="17769:18914" ph="{...}" />
+            <marker date="1536776525772" expanded="true" signature="17950:18363" ph="{...}" />
+            <marker date="1536776525772" expanded="true" signature="18134:18269" ph="{...}" />
+            <marker date="1536776525772" expanded="true" signature="18466:18870" ph="{...}" />
+            <marker date="1536776525772" expanded="true" signature="18575:18705" ph="{...}" />
+            <marker date="1536776525772" expanded="true" signature="19007:20726" ph="{...}" />
+            <marker date="1536776525772" expanded="true" signature="19058:19199" ph="{...}" />
+            <marker date="1536776525772" expanded="true" signature="19400:20657" ph="{...}" />
+            <marker date="1536776525772" expanded="true" signature="19539:19653" ph="{...}" />
+            <marker date="1536776525772" expanded="true" signature="19745:20286" ph="{...}" />
+            <marker date="1536776525772" expanded="true" signature="20147:20268" ph="/* Process.Start(Assembly.GetExecutingAssembly().Location, &quot;\&quot;&quot; + path + &quot;\&quot;&quot;); ... */" />
+            <marker date="1536776525772" expanded="true" signature="20832:23832" ph="{...}" />
+            <marker date="1536776525772" expanded="true" signature="20943:23822" ph="{...}" />
+            <marker date="1536776525772" expanded="true" signature="22660:23637" ph="/* var json = &quot;{&quot; + ... */" />
+            <marker date="1536776525772" expanded="true" signature="23889:24283" ph="{...}" />
+            <marker date="1536776525772" expanded="true" signature="24148:24246" ph="{...}" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/RimworldModReleaseTool/Properties/AssemblyInfo.cs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-102">
+        <state>
           <folding>
             <marker date="1536716278902" expanded="true" signature="6:62" ph="..." />
             <marker date="1536716278902" expanded="true" signature="64:251" ph="/* General Information about an assembly is controlled through the following ... */" />
@@ -781,8 +683,76 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/RimworldModReleaseTool/RimworldModReleaseTool.csproj">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="341">
-          <caret line="69" column="39" lean-forward="true" selection-start-line="69" selection-start-column="39" selection-end-line="69" selection-end-column="39" />
+        <state relative-caret-position="561">
+          <caret line="33" column="18" selection-start-line="33" selection-start-column="18" selection-end-line="33" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RimworldModReleaseTool.sln">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RimworldModReleaseTool/PatreonUtility.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="6" column="11" selection-start-line="6" selection-start-column="11" selection-end-line="6" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RimworldModReleaseTool/ReleaseSettings.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="50" selection-start-line="7" selection-start-column="50" selection-end-line="7" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RimworldModReleaseTool/Mod.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1360">
+          <caret line="80" column="8" selection-start-line="80" selection-start-column="8" selection-end-line="80" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RimworldModReleaseTool/SteamUtility.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2278">
+          <caret line="134" column="1" selection-start-line="134" selection-start-column="1" selection-end-line="134" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RimworldModReleaseTool/LudeonUtility.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="9" column="1" selection-start-line="9" selection-start-column="1" selection-end-line="9" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RimworldModReleaseTool/dlls/System.Diagnostics.DiagnosticSource.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="189">
+          <caret line="152" column="49" selection-start-line="152" selection-start-column="49" selection-end-line="152" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RimworldModReleaseTool/GitHubUtility.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="302">
+          <caret line="109" column="46" lean-forward="true" selection-start-line="109" selection-start-column="46" selection-end-line="109" selection-end-column="46" />
+          <folding>
+            <marker date="1536776525751" expanded="false" signature="6:136" ph="..." />
+            <marker date="1536776525751" expanded="true" signature="170:4500" ph="{...}" />
+            <marker date="1536776525751" expanded="true" signature="210:4498" ph="{...}" />
+            <marker date="1536776525751" expanded="true" signature="447:646" ph="{...}" />
+            <marker date="1536776525751" expanded="true" signature="693:1223" ph="{...}" />
+            <marker date="1536776525751" expanded="true" signature="939:1046" ph="{...}" />
+            <marker date="1536776525751" expanded="true" signature="1078:1213" ph="{...}" />
+            <marker date="1536776525751" expanded="true" signature="1312:1933" ph="{...}" />
+            <marker date="1536776525751" expanded="true" signature="1379:1923" ph="{...}" />
+            <marker date="1536776525751" expanded="true" signature="2070:2637" ph="{...}" />
+            <marker date="1536776525751" expanded="true" signature="2292:2384" ph="{...}" />
+            <marker date="1536776525751" expanded="true" signature="2785:4492" ph="{...}" />
+            <marker date="1536776525751" expanded="true" signature="3487:3831" ph="{...}" />
+            <marker date="1536776525751" expanded="true" signature="4184:4341" ph="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>

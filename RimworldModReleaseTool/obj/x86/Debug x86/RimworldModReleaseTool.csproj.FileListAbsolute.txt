@@ -3,7 +3,6 @@ C:\Program Files (x86)\Steam\steamapps\common\RimWorld\ModsWorkspace\Rimworld-Mo
 C:\Program Files (x86)\Steam\steamapps\common\RimWorld\ModsWorkspace\Rimworld-Mod-Release-Tool\RimworldModReleaseTool\bin\x86\Debug x86\RimworldModReleaseTool.exe.config
 C:\Program Files (x86)\Steam\steamapps\common\RimWorld\ModsWorkspace\Rimworld-Mod-Release-Tool\RimworldModReleaseTool\bin\x86\Debug x86\RimworldModReleaseTool.exe
 C:\Program Files (x86)\Steam\steamapps\common\RimWorld\ModsWorkspace\Rimworld-Mod-Release-Tool\RimworldModReleaseTool\bin\x86\Debug x86\RimworldModReleaseTool.pdb
-C:\Program Files (x86)\Steam\steamapps\common\RimWorld\ModsWorkspace\Rimworld-Mod-Release-Tool\RimworldModReleaseTool\bin\x86\Debug x86\Octokit.dll
 C:\Program Files (x86)\Steam\steamapps\common\RimWorld\ModsWorkspace\Rimworld-Mod-Release-Tool\RimworldModReleaseTool\bin\x86\Debug x86\Octokit.xml
 C:\Program Files (x86)\Steam\steamapps\common\RimWorld\ModsWorkspace\Rimworld-Mod-Release-Tool\RimworldModReleaseTool\obj\x86\Debug x86\RimworldModReleaseTool.csprojAssemblyReference.cache
 C:\Program Files (x86)\Steam\steamapps\common\RimWorld\ModsWorkspace\Rimworld-Mod-Release-Tool\RimworldModReleaseTool\obj\x86\Debug x86\RimworldModReleaseTool.exe.config

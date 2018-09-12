@@ -8,6 +8,5 @@ namespace RimworldModReleaseTool
         {
             return Regex.Replace(text, @"\s+", "");
         }
-
     }
 }
