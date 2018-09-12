@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;             
 using System.Linq;
+using System.Management.Automation;
 using System.Net;
 using System.Reflection;
 using System.Runtime.InteropServices;
@@ -46,6 +47,7 @@ namespace RimworldModReleaseTool
         
         public static void Main(string[] args)
         {
+            InitializeProgram();
             ReleaseSettings settings;
             InitializeSettings(out settings);
             
@@ -89,6 +91,19 @@ namespace RimworldModReleaseTool
             Console.WriteLine("\nFin."); // Any key to exit...");
         }
 
+        private static void InitializeProgram()
+        {
+            AppDomain.CurrentDomain.AssemblyResolve += (sender, args) => {
+                String resourceName = "AssemblyLoadingAndReflection." +
+                                      new AssemblyName(args.Name).Name + ".dll";
+                using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceName)) {
+                    Byte[] assemblyData = new Byte[stream.Length];
+                    stream.Read(assemblyData, 0, assemblyData.Length);
+                    return Assembly.Load(assemblyData);
+                }
+            };
+        }
+
         private static void PatreonPostRequest(ReleaseSettings settings, ModUpdateInfo updateInfo)
         {
             if (Program.UserAccepts("Update Patreon post now? (Y/N): "))
@@ -103,6 +118,19 @@ namespace RimworldModReleaseTool
             {
                 try
                 {
+                    var publishedIdPath = releasePath + @"\About\PublishedFileId.txt";
+                    if (!File.Exists(publishedIdPath))
+                    {
+                        if (UserAccepts("\nPublishedFileId.txt not detected. Input workshop ID now? (Y / N): "))
+                        {
+                            Console.WriteLine("\nPlease enter the workshop ID OR Press ENTER to continue: ");
+                            var newPublishedId = Console.ReadLine();
+                            using (StreamWriter sw = File.CreateText(publishedIdPath))
+                            {
+                                sw.WriteLine(newPublishedId);
+                            }
+                        }
+                    }
                     var mod = new Mod( releasePath );
                     SteamUtility.Init();
                     Console.WriteLine( mod.ToString() );
@@ -119,6 +147,7 @@ namespace RimworldModReleaseTool
                 {
                     SteamUtility.Shutdown();
                 }
+                
             }
         }
 
@@ -179,8 +208,14 @@ namespace RimworldModReleaseTool
                 if (result == "") {Console.WriteLine("Exiting..."); Environment.Exit(0);}
                 if (!Directory.Exists(result))
                 {
+                    if (UserAccepts("Target path does not exist. Create directory? (Y / N): "))
+                    {
+                        Directory.CreateDirectory(result);
+                        return result;
+                    }
                     Console.WriteLine("Invalid directory path.");
                     goto ReleasePath;
+                    
                 }
             }
             return result;
@@ -216,33 +251,33 @@ namespace RimworldModReleaseTool
             if (settings.ShowCopyableNotes)
             {
                 StringBuilder s = new StringBuilder();
-                
-                s.AppendLine("==============================");
-                s.AppendLine("==========Steam Format========");
-                s.AppendLine("==============================");
-                s.AppendLine();
-                s.AppendLine(updateInfo.Name + " Update");
-                s.AppendLine("====================");
-                s.AppendLine("Version: " + updateInfo.Version);
-                s.AppendLine("Updated: " + updateInfo.PublishDateString);
-                s.AppendLine("Description: " + updateInfo.Description);
-                s.AppendLine("====================");
-                s.AppendLine("Greetings fellow RimWorlder,");
-                s.AppendLine();
-                s.AppendLine("Text goes here");
-                s.AppendLine();
-                s.AppendLine("Yours");
-                s.AppendLine("-Jec");
-                s.AppendLine();
-                s.AppendLine("Download now on...");
-                s.AppendLine("- Patreon: " + updateInfo.PatreonURL);
-                s.AppendLine("- GitHub: " + updateInfo.URL);
-                s.AppendLine("- Steam: " + updateInfo.SteamURL);
-                s.AppendLine("Discuss the mod on...");
-                s.AppendLine("- Discord: " + updateInfo.DiscordURL);
-                s.AppendLine("- Ludeon forums: " + updateInfo.LudeonURL);
-                s.AppendLine();
-                
+                 
+                    s.AppendLine("==============================");
+                    s.AppendLine("==========Steam Format========");
+                    s.AppendLine("==============================");
+                    s.AppendLine();
+                    s.AppendLine(updateInfo.Name + " Update");
+                    s.AppendLine("====================");
+                    s.AppendLine("Version: " + updateInfo.Version);
+                    s.AppendLine("Updated: " + updateInfo.PublishDateString);
+                    s.AppendLine("Description: " + updateInfo.Description);
+                    s.AppendLine("====================");
+//                    s.AppendLine("Greetings fellow RimWorlder,");
+//                    s.AppendLine();
+//                    s.AppendLine("Text goes here");
+//                    s.AppendLine();
+//                    s.AppendLine("Yours");
+//                    s.AppendLine("-Jec");
+                    s.AppendLine();
+                    s.AppendLine("Download now on...");
+                    if (settings.HandlePatreon) s.AppendLine("- Patreon: " + updateInfo.PatreonURL);
+                    if (settings.HandleGitHub) s.AppendLine("- GitHub: " + updateInfo.URL);
+                    if (settings.HandleSteam) s.AppendLine("- Steam: " + updateInfo.SteamURL);
+                    s.AppendLine("Discuss the mod on...");
+                    if (settings.HandleDiscord) s.AppendLine("- Discord: " + updateInfo.DiscordURL);
+                    if (settings.HandleLudeon) s.AppendLine("- Ludeon forums: " + updateInfo.LudeonURL);
+                    s.AppendLine();
+
                 s.AppendLine("==============================");
                 s.AppendLine("===========BBS Format=========");
                 s.AppendLine("==============================");
@@ -256,19 +291,20 @@ namespace RimworldModReleaseTool
                 s.AppendLine("Description: [color=orange]" + updateInfo.Description + "[/color]");
                 s.AppendLine("[hr][b]Notes from Jec:[/b][/center]");
                 s.AppendLine();
-                s.AppendLine("[center][tt]Greetings fellow RimWorlder,");
-                s.AppendLine();
-                s.AppendLine("Text goes here");
-                s.AppendLine();
-                s.AppendLine("[tt]Yours[/tt]");
-                s.AppendLine("[list][li][tt]Jec[/tt][/li][/list]");
+//                s.AppendLine("[center][tt]Greetings fellow RimWorlder,");
+//                s.AppendLine();
+//                s.AppendLine("Text goes here");
+//                s.AppendLine();
+//                s.AppendLine("[tt]Yours[/tt]");
+//                s.AppendLine("[list][li][tt]Jec[/tt][/li][/list]");
                 s.AppendLine("[hr]");
                 s.AppendLine("[b]Download now on...[/b]");
-                s.AppendLine("[url=" + updateInfo.PatreonURL + "]Patreon[/url]");
-                s.AppendLine("[url=" + updateInfo.URL + "]GitHub[/url]");
-                s.AppendLine("[url=" + updateInfo.SteamURL + "]Steam[/url]");
+                if (settings.HandlePatreon) s.AppendLine("[url=" + updateInfo.PatreonURL + "]Patreon[/url]");
+                if (settings.HandleGitHub) s.AppendLine("[url=" + updateInfo.URL + "]GitHub[/url]");
+                if (settings.HandleSteam) s.AppendLine("[url=" + updateInfo.SteamURL + "]Steam[/url]");
                 s.AppendLine("[b]Discuss the mod on...[/b]");
-                s.AppendLine("[url=" + updateInfo.DiscordURL + "]Discord[/url]");
+                if (settings.HandleDiscord) s.AppendLine("[url=" + updateInfo.DiscordURL + "]Discord[/url]");
+                if (settings.HandleLudeon) s.AppendLine("[url=" + updateInfo.LudeonURL + "]Ludeon[/url]");
                 var newFilePath = updateInfo.Path + @"\updateinfo";
                 if (File.Exists(newFilePath))
                 {
@@ -310,11 +346,14 @@ namespace RimworldModReleaseTool
             {
                 Console.WriteLine("\nActive RimWorld Detected.");
                 if (UserAccepts($"Restart RimWorld process? (Y/N) "))
-                {
+                { 
                     var process = Process.GetProcessesByName("RimWorldWin64")[0];
                     process.Kill();
-                    var processPath = process.MainModule.FileName;
-                    Process.Start(processPath);
+                    using (PowerShell powershell = PowerShell.Create()) {
+                        // this changes from the user folder that PowerShell starts up with to your git repository
+                        powershell.AddScript(process.MainModule.FileName);
+                        Collection<PSObject> results = powershell.Invoke();
+                    }
                 }
             }
         }
@@ -483,23 +522,40 @@ namespace RimworldModReleaseTool
                     "{" +
                     "\"embeds\":[{\"image\":{\"url\":\"" + updateInfoImageUrl + "\"}}]" +          
                     "}";
-                var json = "{" +
-                           "\"content\":\": \\n\\n..-==========================-.\\n" +
-                           "   __**" + updateInfoName + " Updated**__\\n" +
-                           "    **Version:** ***" + updateInfoVersion + "***\\n" +
-                           "    **Updated:** ***" + updateInfoPublishDateString + "***\\n" +
-                           "    **Description:** \\n```" +
-                           //"\"embeds\":[" +
-                           //"{" +
-                           updateInfoDescription + "```\\n" +
-                           "  Download now on...\\n" +
-                           "  * [Patreon](" + updateInfoPatreonUrl + ")\\n" +
-                           "  * [Steam](" + updateInfoSteamUrl + ")\\n" +
-                           "  * [GitHub](" + updateInfoUrl + ")\\n" +
-                           "'-==========================-'\"" +
-                           "}";
+                
+                StringBuilder jsonB = new StringBuilder();
+                jsonB.Append("{");
+                jsonB.Append("\"content\":\": \\n\\n..-==========================-.\\n");
+                jsonB.Append("   __**" + updateInfoName + " Updated**__\\n");
+                jsonB.Append("    **Version:** ***" + updateInfoVersion + "***\\n");
+                jsonB.Append("    **Updated:** ***" + updateInfoPublishDateString + "***\\n");
+                jsonB.Append("    **Description:** \\n```");
+                jsonB.Append(updateInfoDescription + "```\\n");
+                jsonB.Append("  Download now on...\\n");
+                if (settings.HandlePatreon) jsonB.Append("  * [Patreon](" + updateInfoPatreonUrl + ")\\n");
+                if (settings.HandleSteam) jsonB.Append("  * [Steam](" + updateInfoSteamUrl + ")\\n");
+                if (settings.HandleGitHub) jsonB.Append("  * [GitHub](" + updateInfoUrl + ")\\n");
+                jsonB.Append("'-==========================-'\"");
+                jsonB.Append("}");
+                
+                
+//                var json = "{" +
+//                           "\"content\":\": \\n\\n..-==========================-.\\n" +
+//                           "   __**" + updateInfoName + " Updated**__\\n" +
+//                           "    **Version:** ***" + updateInfoVersion + "***\\n" +
+//                           "    **Updated:** ***" + updateInfoPublishDateString + "***\\n" +
+//                           "    **Description:** \\n```" +
+//                           //"\"embeds\":[" +
+//                           //"{" +
+//                           updateInfoDescription + "```\\n" +
+//                           "  Download now on...\\n" +
+//                           "  * [Patreon](" + updateInfoPatreonUrl + ")\\n" +
+//                           "  * [Steam](" + updateInfoSteamUrl + ")\\n" +
+//                           "  * [GitHub](" + updateInfoUrl + ")\\n" +
+//                           "'-==========================-'\"" +
+//                           "}";
                 HttpWebRequestWithJSON(imgJson, updateInfo.DiscordWebhookToken);
-                HttpWebRequestWithJSON(json, updateInfo.DiscordWebhookToken);
+                HttpWebRequestWithJSON(jsonB.ToString(), updateInfo.DiscordWebhookToken);
             }
         }
 

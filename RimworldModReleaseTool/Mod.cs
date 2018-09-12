@@ -21,7 +21,7 @@ namespace RimworldModReleaseTool
                 set
                 {
                     if ( _publishedFileId != value && value != PublishedFileId_t.Invalid )
-                        File.WriteAllText( PathCombine( ContentFolder, "About", "PublishedFileId.txt" ), value.ToString() );
+                        File.WriteAllText( PathCombine( ContentFolder, "About", "PublishedFileId.txt" ), value.ToString().Trim() );
                     _publishedFileId = value;
                 }
             }

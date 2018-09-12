@@ -90,10 +90,20 @@ namespace RimworldModReleaseTool
             latestCommits.Wait();
             var latestCommit = latestCommits.Result.First().Sha;
             
+            //Check if release exists for the version #
+            var curVersion = version;
+            var versCheck = Task.Run(async () => await info.Client.Repository.Release.GetAll(repo.Id));
+            versCheck.Wait();
+            if (versCheck.Result.Any(x => x.TagName == curVersion))
+            {
+                curVersion = curVersion + "1";
+            }
+
+            
             //Set a tag for our release
             var tag = new NewTag {
                 Message = name + " - " + body,
-                Tag = version,
+                Tag = curVersion,
                 Object = latestCommit, // short SHA
                 Type = TaggedType.Commit, // TODO: what are the defaults when nothing specified?
                 Tagger = new Committer(info.GitHubAuthor, info.GitHubEmail, DateTimeOffset.UtcNow)

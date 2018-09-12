@@ -1,12 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
-    <e p="C:\Program Files (x86)\Steam\steamapps\common\RimWorld\ModsWorkspace\RimworldModReleaseTool" t="IncludeFlat">
+    <e p="C:\Program Files (x86)\Steam\steamapps\common\RimWorld\ModsWorkspace\Rimworld-Mod-Release-Tool" t="IncludeFlat">
       <e p="packages" t="ExcludeRecursive" />
       <e p="RimworldModReleaseTool" t="IncludeRecursive">
         <e p="bin" t="ExcludeRecursive" />
         <e p="config.xml" t="Include" />
         <e p="configDefaults.xml" t="Include" />
+        <e p="dlls" t="Include">
+          <e p="steam_api.dll" t="Include" />
+          <e p="Steamworks.NET.dll" t="Include" />
+          <e p="System.Diagnostics.DiagnosticSource.dll" t="Include" />
+          <e p="System.Diagnostics.DiagnosticSource.xml" t="Include" />
+          <e p="System.IO.Compression.dll" t="Include" />
+          <e p="System.IO.Compression.FileSystem.dll" t="Include" />
+          <e p="System.Management.Automation.dll" t="Include" />
+          <e p="System.Net.Http.dll" t="Include" />
+        </e>
         <e p="GitHubUtility.cs" t="Include" />
         <e p="LudeonUtility.cs" t="Include" />
         <e p="MiscUtility.cs" t="Include" />
@@ -21,15 +31,11 @@
         </e>
         <e p="ReleaseSettings.cs" t="Include" />
         <e p="RimworldModReleaseTool.csproj" t="IncludeRecursive" />
-        <e p="steamdlls" t="Include">
-          <e p="steam_api.dll" t="Include" />
-          <e p="steam_api64.dll" t="Include" />
-          <e p="steam_appid.txt" t="Include" />
-        </e>
         <e p="SteamUtility.cs" t="Include" />
       </e>
       <e p="RimworldModReleaseTool.sln" t="IncludeFlat" />
     </e>
-    <e p="C:\Users\mattw\.Rider2017.2\system\resharper-host\local\Transient\ReSharperHost\v10\SolutionCaches\_RimworldModReleaseTool.1987986206.00" t="ExcludeRecursive" />
+    <e p="C:\Users\mattw\.Rider2018.2\system\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\mattw\.Rider2018.2\system\resharper-host\local\Transient\ReSharperHost\v182\SolutionCaches\_RimworldModReleaseTool.-1305458553.00" t="ExcludeRecursive" />
   </component>
 </project>
