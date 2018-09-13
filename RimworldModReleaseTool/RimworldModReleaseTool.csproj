@@ -12,17 +12,6 @@
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugSymbols>false</DebugSymbols>
-    <DebugType>none</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;STEAMWORKS_WIN</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32bit>true</Prefer32bit>
-  </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
@@ -41,13 +30,28 @@
     <ErrorReport>prompt</ErrorReport>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <WarningLevel>4</WarningLevel>
+    <PreBuildEvent>copy "$(SolutionDir)Dependencies\Octokit.dll" "$(TargetDir)Octokit.dll"</PreBuildEvent>
+    <PreBuildEvent>copy "$(SolutionDir)$(SolutionName)\config.xml" "$(TargetDir)config.xml"</PreBuildEvent>
+    <PreBuildEvent>copy "$(SolutionDir)$(SolutionName)\dlls\steam_api.dll" "$(TargetDir)steam_api.dll"</PreBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>false</DebugSymbols>
+    <DebugType>none</DebugType>
+    <Optimize>false</Optimize>
+    <DefineConstants>DEBUG;TRACE;STEAMWORKS_WIN</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32bit>true</Prefer32bit>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <PlatformTarget>x86</PlatformTarget>
+    <PreBuildEvent>copy "$(SolutionDir)Dependencies\Octokit.dll" "$(TargetDir)Octokit.dll"</PreBuildEvent>
     <PreBuildEvent>copy "$(SolutionDir)$(SolutionName)\config.xml" "$(TargetDir)config.xml"</PreBuildEvent>
     <PreBuildEvent>copy "$(SolutionDir)$(SolutionName)\dlls\steam_api.dll" "$(TargetDir)steam_api.dll"</PreBuildEvent>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Octokit, Version=0.32.0.0, Culture=neutral, PublicKeyToken=null">
-      <HintPath>dlls\Octokit.0.32.0\lib\net45\Octokit.dll</HintPath>
+    <Reference Include="Octokit">
+      <HintPath>dlls\Octokit.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Steamworks.NET, Version=11.0.0.0, Culture=neutral, PublicKeyToken=null">

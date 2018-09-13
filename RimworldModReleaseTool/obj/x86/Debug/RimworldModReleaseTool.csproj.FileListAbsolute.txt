@@ -1,0 +1,16 @@
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\ModsWorkspace\Rimworld-Mod-Release-Tool\RimworldModReleaseTool\obj\x86\Debug\RimworldModReleaseTool.csprojAssemblyReference.cache
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\ModsWorkspace\Rimworld-Mod-Release-Tool\RimworldModReleaseTool\obj\x86\Debug\RimworldModReleaseTool.csproj.CoreCompileInputs.cache
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\ModsWorkspace\Rimworld-Mod-Release-Tool\RimworldModReleaseTool\bin\x86\Debug\configDefaults.xml
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\ModsWorkspace\Rimworld-Mod-Release-Tool\RimworldModReleaseTool\bin\x86\Debug\config.xml
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\ModsWorkspace\Rimworld-Mod-Release-Tool\RimworldModReleaseTool\bin\x86\Debug\dlls\steam_api.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\ModsWorkspace\Rimworld-Mod-Release-Tool\RimworldModReleaseTool\bin\x86\Debug\RimworldModReleaseTool.exe
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\ModsWorkspace\Rimworld-Mod-Release-Tool\RimworldModReleaseTool\bin\x86\Debug\Octokit.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\ModsWorkspace\Rimworld-Mod-Release-Tool\RimworldModReleaseTool\bin\x86\Debug\Steamworks.NET.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\ModsWorkspace\Rimworld-Mod-Release-Tool\RimworldModReleaseTool\bin\x86\Debug\System.Diagnostics.DiagnosticSource.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\ModsWorkspace\Rimworld-Mod-Release-Tool\RimworldModReleaseTool\bin\x86\Debug\System.IO.Compression.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\ModsWorkspace\Rimworld-Mod-Release-Tool\RimworldModReleaseTool\bin\x86\Debug\System.IO.Compression.FileSystem.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\ModsWorkspace\Rimworld-Mod-Release-Tool\RimworldModReleaseTool\bin\x86\Debug\System.Management.Automation.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\ModsWorkspace\Rimworld-Mod-Release-Tool\RimworldModReleaseTool\bin\x86\Debug\System.Net.Http.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\ModsWorkspace\Rimworld-Mod-Release-Tool\RimworldModReleaseTool\bin\x86\Debug\System.Diagnostics.DiagnosticSource.xml
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\ModsWorkspace\Rimworld-Mod-Release-Tool\RimworldModReleaseTool\obj\x86\Debug\RimworldModReleaseTool.csproj.CopyComplete
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\ModsWorkspace\Rimworld-Mod-Release-Tool\RimworldModReleaseTool\obj\x86\Debug\RimworldModReleaseTool.exe
