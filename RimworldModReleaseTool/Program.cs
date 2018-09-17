@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using System.Management;
 using System.Management.Automation;
 using System.Net;
 using System.Reflection;
@@ -64,22 +65,23 @@ namespace RimworldModReleaseTool
 
             if (!UserAccepts("\nPublish update for " + curDirName + "? (Y/N) :"))
                 goto Abort;
-            var updateInfo = new ModUpdateInfo(settings, workspacePath);
+            var updateInfo = new ModUpdateInfo(settings, workspacePath, releasePath);
 
             /////////////////////////////
             /// Publishing
             //1. Update GitHub
             GitHubCommitRequest(settings, updateInfo);
             GitHubReleaseRequest(settings, updateInfo);
-            //2. Update Discord
-            SendJSONToDiscordWebhook(settings, updateInfo);
-            //3. Update Patreon
+            //2. Update Patreon
             //PatreonPostRequest(settings, updateInfo); //TODO
             ZipFilesRequest(releasePath, updateInfo, settings.FilteredWhenZipped.ClearWhiteSpace().Split(','));
-            //4. Update Ludeon
+            //3. Update Ludeon
             //LudeonPostRequest(settings, updateInfo); //TODO
-            //5. Update Steam
+            //4. Update Steam
             SteamUpdateRequest(settings, updateInfo, releasePath); //TODO
+            //5. Update Discord
+            SendJSONToDiscordWebhook(settings, updateInfo);
+            //6. Print reports
             OutputUpdateReport(settings, updateInfo);
 
             Abort:
@@ -126,7 +128,7 @@ namespace RimworldModReleaseTool
                     var mod = new Mod(releasePath);
                     SteamUtility.Init();
                     Console.WriteLine(mod.ToString());
-                    if (SteamUtility.Upload(mod)) Console.WriteLine("Upload done");
+                    if (SteamUtility.Upload(mod, UpdateReport(updateInfo))) Console.WriteLine("Upload done");
                 }
                 catch (Exception e)
                 {
@@ -149,9 +151,9 @@ namespace RimworldModReleaseTool
             var result = "";
             if (args != null && args.Length != 0)
             {
-                //Case 1: One argument is passed. Suppose current directory is Workspace directory.
+                //Case 1: One argument is passed. Suppose argument is Workspace directory.
                 if (args.Length == 1)
-                    result = Directory.GetCurrentDirectory();
+                    result = args[0]; //Directory.GetCurrentDirectory();
                 //Case 2: Two arguments or more are passed. Assume the first argument is the Workspace directory.
                 else
                     result = args[0];
@@ -185,7 +187,7 @@ namespace RimworldModReleaseTool
             {
                 //Case 1: One argument is passed. Suppose argument is target directory.
                 if (args.Length == 1)
-                    result = Path.GetFullPath(args[0]);
+                    result = Path.GetFullPath(args[0]).Replace("Workspace", "");
                 //Case 2: Two arguments or more are passed. Assume the second argument is the target directory.
                 else
                     result = Path.GetFullPath(args[1]);
@@ -218,27 +220,30 @@ namespace RimworldModReleaseTool
             return result;
         }
 
-        private static void HttpWebRequestWithJSON(string json, string token)
+        private static void HttpWebRequestWithJSON(string json, List<string> tokens)
         {
-            var httpWebRequest = (HttpWebRequest)
-                WebRequest.Create(
-                    token);
-            httpWebRequest.ContentType = "application/json";
-            httpWebRequest.Method = "POST";
-
-            using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
+            foreach (string token in tokens)
             {
-                streamWriter.Write(json);
-                Console.WriteLine(json);
-                streamWriter.Flush();
-                streamWriter.Close();
-            }
+                var httpWebRequest = (HttpWebRequest)
+                    WebRequest.Create(
+                        token);
+                httpWebRequest.ContentType = "application/json";
+                httpWebRequest.Method = "POST";
 
-            var result = "";
-            var httpResponse = (HttpWebResponse) httpWebRequest.GetResponse();
-            using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
-            {
-                result = streamReader.ReadToEnd();
+                using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
+                {
+                    streamWriter.Write(json);
+                    Console.WriteLine(json);
+                    streamWriter.Flush();
+                    streamWriter.Close();
+                }
+
+                var result = "";
+                var httpResponse = (HttpWebResponse) httpWebRequest.GetResponse();
+                using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+                {
+                    result = streamReader.ReadToEnd();
+                }
             }
 
             //Console.WriteLine(result);
@@ -248,24 +253,13 @@ namespace RimworldModReleaseTool
         {
             if (settings.ShowCopyableNotes)
             {
-                var s = new StringBuilder();
 
+                var s = new StringBuilder();
                 s.AppendLine("==============================");
                 s.AppendLine("==========Steam Format========");
                 s.AppendLine("==============================");
                 s.AppendLine();
-                s.AppendLine(updateInfo.Name + " Update");
-                s.AppendLine("====================");
-                s.AppendLine("Version: " + updateInfo.Version);
-                s.AppendLine("Updated: " + updateInfo.PublishDateString);
-                s.AppendLine("Description: " + updateInfo.Description);
-                s.AppendLine("====================");
-//                    s.AppendLine("Greetings fellow RimWorlder,");
-//                    s.AppendLine();
-//                    s.AppendLine("Text goes here");
-//                    s.AppendLine();
-//                    s.AppendLine("Yours");
-//                    s.AppendLine("-Jec");
+                s.Append(UpdateReport(updateInfo));
                 s.AppendLine();
                 s.AppendLine("Download now on...");
                 if (settings.HandlePatreon) s.AppendLine("- Patreon: " + updateInfo.PatreonURL);
@@ -287,8 +281,8 @@ namespace RimworldModReleaseTool
                 s.AppendLine("Version: " + updateInfo.Version);
                 s.AppendLine("Updated: " + updateInfo.PublishDateString);
                 s.AppendLine("Description: [color=orange]" + updateInfo.Description + "[/color]");
-                s.AppendLine("[hr][b]Notes from Jec:[/b][/center]");
-                s.AppendLine();
+//                s.AppendLine("[hr][b]Notes from Jec:[/b][/center]");
+//                s.AppendLine();
 //                s.AppendLine("[center][tt]Greetings fellow RimWorlder,");
 //                s.AppendLine();
 //                s.AppendLine("Text goes here");
@@ -308,6 +302,18 @@ namespace RimworldModReleaseTool
                 File.WriteAllText(newFilePath, s.ToString());
                 Process.Start(settings.CopyableNotesProgram, newFilePath);
             }
+        }
+
+        private static string UpdateReport(ModUpdateInfo updateInfo)
+        {
+            var s = new StringBuilder();
+            s.AppendLine(updateInfo.Name + " Update");
+            s.AppendLine("====================");
+            s.AppendLine("Version: " + updateInfo.Version);
+            s.AppendLine("Updated: " + updateInfo.PublishDateString);
+            s.AppendLine("Description: " + updateInfo.Description);
+            s.AppendLine("====================");
+            return s.ToString();
         }
 
         private static void GitHubReleaseRequest(ReleaseSettings settings, ModUpdateInfo updateInfo)
@@ -332,40 +338,54 @@ namespace RimworldModReleaseTool
 
         private static void RestartRimWorldRequest()
         {
-            var pname = Process.GetProcessesByName("RimWorldWin64");
-            if (pname.Length != 0)
+            var wmiQueryString = "SELECT ProcessId, ExecutablePath, CommandLine FROM Win32_Process";
+            using (var searcher = new ManagementObjectSearcher(wmiQueryString))
+            using (var results = searcher.Get())
             {
-                Console.WriteLine("\nActive RimWorld Detected.");
-                if (UserAccepts("Restart RimWorld process? (Y/N) "))
-                {
-                    var process = Process.GetProcessesByName("RimWorldWin64")[0];
-                    process.Kill();
-                    using (var powershell = PowerShell.Create())
+                var query = from p in Process.GetProcesses()
+                    join mo in results.Cast<ManagementObject>()
+                        on p.Id equals (int) (uint) mo["ProcessId"]
+                    select new
                     {
-                        // this changes from the user folder that PowerShell starts up with to your git repository
-                        powershell.AddScript(process.MainModule.FileName);
-                        var results = powershell.Invoke();
+                        Process = p,
+                        Path = (string) mo["ExecutablePath"],
+                        CommandLine = (string) mo["CommandLine"],
+                    };
+                foreach (var item in query)
+                {
+                    if (item?.Path?.Contains("RimWorldWin64.exe") == true)
+                    {
+                        Console.WriteLine("\nActive RimWorld Detected.");
+                        if (UserAccepts("Restart RimWorld process? (Y/N) "))
+                        {
+                            var processPath = item.Path;
+                            ProcessStartInfo psi = new ProcessStartInfo();
+                            psi.FileName = "CMD.EXE";
+                            psi.Arguments = "/K \"" + processPath + "\"";
+                            Process.Start(psi);
+                            item.Process.CloseMainWindow();
+                            break;
+                        }
                     }
                 }
             }
+
+            //var process = Process.GetProcessesByName("RimWorldWin64")[0];
         }
 
         private static void ZipFilesRequest(string targetPath, ModUpdateInfo info, string[] excludedZipFiles)
         {
-            if (UserAccepts("\nCopying complete. Would you like to zip the files? (Y/N) "))
+            if (UserAccepts("\nWould you like to zip the files? (Y/N) "))
             {
                 var name = info.Path.Substring(info.Path.LastIndexOf("\\", StringComparison.Ordinal) + 1);
-
                 var note = "";
                 Console.WriteLine("Add a note for the ZIP file or press ENTER to continue");
                 note = Console.ReadLine();
-
                 var path = targetPath + $"\\..\\{name}-{note}({info.Version})({info.PublishDateString}).zip";
                 Console.WriteLine(path);
+
                 var dest = Path.GetFullPath(path);
-
                 if (File.Exists(dest)) File.Delete(dest);
-
                 ZipFile.CreateFromDirectory(targetPath, dest);
 
                 //Remove unwanted files from the zip
@@ -404,7 +424,6 @@ namespace RimworldModReleaseTool
                     }
                 }
 
-
                 Console.WriteLine("Zipped and placed at " + dest);
             }
         }
@@ -412,7 +431,6 @@ namespace RimworldModReleaseTool
         private static void CopyFilesAndDirectories(string currentPath, string[] excludedPaths, string path)
         {
             var ToCopy = new List<string>();
-
             foreach (var dirPath in Directory.GetDirectories(currentPath, "*",
                 SearchOption.AllDirectories))
             {
@@ -450,11 +468,9 @@ namespace RimworldModReleaseTool
             }
 
             if (!UserAccepts($"Copying from\n{currentPath}\nTo\n{path}\nIs this correct? (Y/N) ")) return false;
-
             if (Directory.EnumerateFileSystemEntries(path).Any(file => file != null))
             {
                 if (!UserAccepts("Target path is not empty. Ok to delete files? (Y/N) ")) return false;
-
                 try
                 {
                     if (Directory.Exists(path)) Directory.Delete(path, true);
@@ -467,13 +483,12 @@ namespace RimworldModReleaseTool
                     var process = Process.Start("C:\\Program Files\\LockHunter\\LockHunter.exe",
                         "-sm -d " + "\"" + path + "\"");
                     while (process != null && !process.HasExited) process?.WaitForExit(Timeout.Infinite);
-                    //Process.Start(Assembly.GetExecutingAssembly().Location, "\"" + path + "\"");
-                    //Environment.Exit(0);
+//Process.Start(Assembly.GetExecutingAssembly().Location, "\"" + path + "\"");
+//Environment.Exit(0);
                 }
 
                 if (Directory.Exists(path)) Directory.Delete(path, true);
                 Directory.CreateDirectory(path);
-
                 Console.WriteLine("-------------------------------------\n" +
                                   "Purged target directory of all files.\n" +
                                   "-------------------------------------");
@@ -499,7 +514,6 @@ namespace RimworldModReleaseTool
                     "{" +
                     "\"embeds\":[{\"image\":{\"url\":\"" + updateInfoImageUrl + "\"}}]" +
                     "}";
-
                 var jsonB = new StringBuilder();
                 jsonB.Append("{");
                 jsonB.Append("\"content\":\": \\n\\n..-==========================-.\\n");
@@ -514,7 +528,6 @@ namespace RimworldModReleaseTool
                 if (settings.HandleGitHub) jsonB.Append("  * [GitHub](" + updateInfoUrl + ")\\n");
                 jsonB.Append("'-==========================-'\"");
                 jsonB.Append("}");
-
 
 //                var json = "{" +
 //                           "\"content\":\": \\n\\n..-==========================-.\\n" +
@@ -531,8 +544,8 @@ namespace RimworldModReleaseTool
 //                           "  * [GitHub](" + updateInfoUrl + ")\\n" +
 //                           "'-==========================-'\"" +
 //                           "}";
-                HttpWebRequestWithJSON(imgJson, updateInfo.DiscordWebhookToken);
-                HttpWebRequestWithJSON(jsonB.ToString(), updateInfo.DiscordWebhookToken);
+                HttpWebRequestWithJSON(imgJson, updateInfo.DiscordWebhookTokens);
+                HttpWebRequestWithJSON(jsonB.ToString(), updateInfo.DiscordWebhookTokens);
             }
         }
 
@@ -542,9 +555,7 @@ namespace RimworldModReleaseTool
             Console.Write(question);
             input = ' ';
             while (input != 'y' && input != 'n') input = char.ToLower(Console.ReadKey().KeyChar);
-
             Console.WriteLine();
-
             if (input == 'y')
             {
                 Console.WriteLine("\n");

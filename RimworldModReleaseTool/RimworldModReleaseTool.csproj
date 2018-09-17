@@ -73,6 +73,7 @@
       <HintPath>dlls\System.IO.Compression.FileSystem.dll</HintPath>
       <Private>true</Private>
     </Reference>
+    <Reference Include="System.Management" />
     <Reference Include="System.Management.Automation, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
       <HintPath>dlls\System.Management.Automation.dll</HintPath>
       <Private>true</Private>

@@ -22,6 +22,9 @@ namespace RimworldModReleaseTool
 
         [XmlElement(ElementName = "handlePatreon")]
         public bool HandlePatreon { get; set; }
+        
+        [XmlElement(ElementName = "askForVersionNum")]
+        public bool AskForVersionNum { get; set; }
 
         [XmlElement(ElementName = "showCopyableNotes")]
         public bool ShowCopyableNotes { get; set; }

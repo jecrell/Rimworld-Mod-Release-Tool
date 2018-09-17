@@ -6,6 +6,7 @@
     <handleDiscord>true</handleDiscord>
     <handleDiscordWebhook>true</handleDiscordWebhook>
     <handlePatreon>true</handlePatreon>
+    <askForVersionNum>true</askForVersionNum>
     <showCopyableNotes>true</showCopyableNotes>
     <copyableNotesProgram>notepad.exe</copyableNotesProgram>
     <filteredWhenCopied>.git, \\source, .gitattributes, .gitignore, .idea, .vs, .exe, Octokit</filteredWhenCopied>

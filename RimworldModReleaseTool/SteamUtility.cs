@@ -35,7 +35,7 @@ namespace RimworldModReleaseTool
             }
         }
 
-        public static bool Upload(Mod mod)
+        public static bool Upload(Mod mod, string changeNotes = "changeNotes are for the weeeak")
         {
             var creating = false;
             if (mod.PublishedFileId == PublishedFileId_t.Invalid)
@@ -52,7 +52,7 @@ namespace RimworldModReleaseTool
             SetItemAttributes(handle, mod, creating);
 
             // start async call
-            var call = SteamUGC.SubmitItemUpdate(handle, "changenotes are for the weak");
+            var call = SteamUGC.SubmitItemUpdate(handle, changeNotes);
             submitResultCallback = CallResult<SubmitItemUpdateResult_t>.Create(OnItemSubmitted);
             submitResultCallback.Set(call);
 

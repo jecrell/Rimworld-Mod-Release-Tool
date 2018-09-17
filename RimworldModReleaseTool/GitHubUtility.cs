@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using System.Management.Automation;
 using System.Threading.Tasks;
@@ -40,17 +41,18 @@ namespace RimworldModReleaseTool
 
         public static void RunGitProcessWithArgs(string workingDirectory, string info)
         {
+            
             using (var powershell = PowerShell.Create())
             {
                 // this changes from the user folder that PowerShell starts up with to your git repository
                 powershell.AddScript(string.Format("cd \"{0}\"", workingDirectory));
-
                 powershell.AddScript(@"git init");
                 powershell.AddScript(@"git add *");
                 powershell.AddScript(@"git commit -m 'git commit from PowerShell in C#" + info + "'");
                 powershell.AddScript(@"git push origin master");
-
                 var results = powershell.Invoke();
+                foreach (var invoke in results)
+                    Console.WriteLine(invoke.ToString());                    
             }
         }
 
@@ -85,11 +87,22 @@ namespace RimworldModReleaseTool
 
             //Check if release exists for the version #
             var curVersion = version;
-            var versCheck = Task.Run(async () => await info.Client.Repository.Release.GetAll(repo.Id));
-            versCheck.Wait();
-            if (versCheck.Result.Any(x => x.TagName == curVersion)) curVersion = curVersion + "1";
-
-
+            for (int newVersionAdditive = 0; newVersionAdditive < 999; newVersionAdditive++)
+            {    
+                Console.WriteLine("Checking if release tag for version number already exists...");
+                var versCheck = Task.Run(async () => await info.Client.Repository.Release.GetAll(repo.Id));
+                versCheck.Wait();
+                if (versCheck.Result.Any(x => x.TagName == curVersion))
+                {
+                    curVersion = curVersion + newVersionAdditive;
+                    Console.WriteLine("Release tag exists. Setting new version to " + curVersion);
+                }
+                else
+                {
+                    Console.WriteLine("Final release tag set as " + curVersion);
+                    break;
+                }
+            }
             //Set a tag for our release
             var tag = new NewTag
             {

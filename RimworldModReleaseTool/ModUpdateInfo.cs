@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
 using System.Xml;
 using System.Xml.Linq;
 using Octokit;
@@ -14,7 +17,7 @@ namespace RimworldModReleaseTool
 
         private readonly string title;
 
-        public ModUpdateInfo(ReleaseSettings settings, string workspacePath)
+        public ModUpdateInfo(ReleaseSettings settings, string workspacePath, string targetPath)
         {
             Path = workspacePath;
 
@@ -108,21 +111,35 @@ namespace RimworldModReleaseTool
             ///// Get the Discord Webhook
             if (settings.HandleDiscordWebhook)
             {
-                var webhookPath = Path + @"\Source\DiscordWebhookToken.txt";
+                var sourcePath = Path + @"\Source";
+                var webhookPath = sourcePath + @"\DiscordWebhookToken.txt";
                 if (!File.Exists(webhookPath))
                 {
-                    if (Program.UserAccepts("Discord Webhook Token not detected. Create new one? (Y/N): "))
+                    if (Program.UserAccepts("Discord Webhook Tokens not detected. Create new ones? (Y/N): "))
                     {
                         Console.Write("\nPlease enter the Discord Webhook link or Press ENTER to continue : ");
-                        DiscordWebhookToken = "";
-                        DiscordWebhookToken = Console.ReadLine();
+                        DiscordWebhookTokens = new List<string>();
+                        DiscordWebhookTokens.Add(Console.ReadLine().Trim());
                         Console.WriteLine();
-                        File.WriteAllText(webhookPath, DiscordWebhookToken + "\n");
+                        if (!Directory.Exists(sourcePath))
+                            Directory.CreateDirectory(sourcePath);
+                        for (int i = 0; i < 999; i++)
+                        {
+                            if (!Program.UserAccepts("Add additional webhooks? (Y/N): "))
+                                break;
+                            Console.Write("\nPlease enter the Discord Webhook link or Press ENTER to continue : ");
+                            var input = Console.ReadLine();
+                            if (input == "") break;
+                            DiscordWebhookTokens.Add(input.Trim());
+                        }
+
+                        File.WriteAllLines(webhookPath, DiscordWebhookTokens);
                     }
                 }
                 else
                 {
-                    DiscordWebhookToken = File.ReadLines(webhookPath).First().Trim();
+                    DiscordWebhookTokens = new List<string>(File.ReadAllLines(webhookPath));
+                    Console.WriteLine("\nFound " + DiscordWebhookTokens.Count + " Webhook token(s).");
                     //Console.WriteLine(webhookToken);
                 }
             }
@@ -140,9 +157,55 @@ namespace RimworldModReleaseTool
             PublishDate = DateTime.Now;
             PublishDateString = $"{PublishDate:MM-dd-yyyy}";
 
-            ///// Autoset a version number
-            var daysSinceStarted = (DateTime.Now - FirstPublishDate).Days;
-            Version = RimWorldVer + '.' + daysSinceStarted;
+            ///// Ask or autoset a version number
+            var versionPath = workspacePath + @"\About\Version.txt";
+            var versionPathTwo = targetPath + @"\About\Version.txt";
+            if (settings.AskForVersionNum)
+            {
+               if (!File.Exists(versionPath))
+                {
+                    if (Program.UserAccepts("Version number file not detected. Create new one? (Y/N): "))
+                    {
+                        Console.Write("\nPlease enter the current version number of the mod or Press ENTER to continue : ");
+                        Version = "";
+                        while(true)
+                        {
+                            var input = Console.ReadLine();
+                            if (input == "")
+                            {
+                                var daysSinceStarted = (DateTime.Now - FirstPublishDate).Days;
+                                Version = RimWorldVer + '.' + daysSinceStarted;
+                                break;
+                            }
+                            Version = input;
+                            Console.WriteLine("Set version to: " + input);
+                            break;
+                        }
+                        File.WriteAllText(versionPath, Version + "\n");
+                        File.WriteAllText(versionPathTwo, Version + "\n");
+                    }
+                }
+                else
+                {
+                    Version = File.ReadLines(versionPath).First();
+                    Console.WriteLine("Current version detected: " + Version);
+                    Console.WriteLine("Enter new version or press ENTER to generate one: ");
+                    Version = Console.ReadLine();
+                    if (Version == "")
+                    {
+                        var daysSinceStarted = (DateTime.Now - FirstPublishDate).Days;
+                        Version = RimWorldVer + '.' + daysSinceStarted;
+                    }
+                    Console.WriteLine("Set version to: " + Version);
+                    File.WriteAllText(versionPath, Version + "\n");
+                    File.WriteAllText(versionPathTwo, Version + "\n");
+                }   
+            }
+            else
+            {
+                var daysSinceStarted = (DateTime.Now - FirstPublishDate).Days;
+                Version = RimWorldVer + '.' + daysSinceStarted;   
+            }
 
             if (settings.HandleGitHub)
             {
@@ -227,7 +290,7 @@ namespace RimworldModReleaseTool
 
         public string DiscordURL { get; }
 
-        public string DiscordWebhookToken { get; }
+        public List<string> DiscordWebhookTokens { get; }
 
         public string LudeonURL { get; }
 
