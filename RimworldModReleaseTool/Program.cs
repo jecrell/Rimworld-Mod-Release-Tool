@@ -78,7 +78,7 @@ namespace RimworldModReleaseTool
             //3. Update Ludeon
             //LudeonPostRequest(settings, updateInfo); //TODO
             //4. Update Steam
-            SteamUpdateRequest(settings, updateInfo, releasePath); //TODO
+            SteamUpdateRequest(settings, updateInfo, releasePath, workspacePath); //TODO
             //5. Update Discord
             SendJSONToDiscordWebhook(settings, updateInfo);
             //6. Print reports
@@ -108,18 +108,23 @@ namespace RimworldModReleaseTool
             if (UserAccepts("Update Patreon post now? (Y/N): ")) PatreonUtility.UpdatePost(settings, updateInfo);
         }
 
-        private static void SteamUpdateRequest(ReleaseSettings settings, ModUpdateInfo updateInfo, string releasePath)
+        private static void SteamUpdateRequest(ReleaseSettings settings, ModUpdateInfo updateInfo, string releasePath, string workspacePath)
         {
             if (UserAccepts("Upload to Steam workshop now? (Y/N): "))
                 try
                 {
                     var publishedIdPath = releasePath + @"\About\PublishedFileId.txt";
+                    var publishedIdPathTwo = workspacePath + @"\About\PublishedFileId.txt";
                     if (!File.Exists(publishedIdPath))
                         if (UserAccepts("\nPublishedFileId.txt not detected. Input workshop ID now? (Y / N): "))
                         {
                             Console.WriteLine("\nPlease enter the workshop ID OR Press ENTER to continue: ");
                             var newPublishedId = Console.ReadLine();
                             using (var sw = File.CreateText(publishedIdPath))
+                            {
+                                sw.WriteLine(newPublishedId);
+                            }
+                            using (var sw = File.CreateText(publishedIdPathTwo))
                             {
                                 sw.WriteLine(newPublishedId);
                             }
@@ -149,11 +154,15 @@ namespace RimworldModReleaseTool
         private static string ResolvePathForWorkspace(string[] args)
         {
             var result = "";
-            if (args != null && args.Length != 0)
+            if (args?.Length > 0)
             {
+                Console.WriteLine("Args check");
                 //Case 1: One argument is passed. Suppose argument is Workspace directory.
                 if (args.Length == 1)
+                {
+                    Console.WriteLine("Args length 1");
                     result = args[0]; //Directory.GetCurrentDirectory();
+                }
                 //Case 2: Two arguments or more are passed. Assume the first argument is the Workspace directory.
                 else
                     result = args[0];
@@ -361,7 +370,7 @@ namespace RimworldModReleaseTool
                             var processPath = item.Path;
                             ProcessStartInfo psi = new ProcessStartInfo();
                             psi.FileName = "CMD.EXE";
-                            psi.Arguments = "/K \"" + processPath + "\"";
+                            psi.Arguments = "/K \"" + processPath + "\"" + (item.Process?.StartInfo.Arguments ?? "");
                             Process.Start(psi);
                             item.Process.CloseMainWindow();
                             break;
@@ -459,21 +468,21 @@ namespace RimworldModReleaseTool
             Console.WriteLine();
         }
 
-        private static bool DeleteExistingDirectoriesIfAny(string path, string currentPath)
+        private static bool DeleteExistingDirectoriesIfAny(string releasePath, string workspacePath)
         {
-            if (!Directory.Exists(path))
+            if (!Directory.Exists(releasePath))
             {
-                Directory.CreateDirectory(path);
-                Console.WriteLine("Create Directory: " + path);
+                Directory.CreateDirectory(releasePath);
+                Console.WriteLine("Create Directory: " + releasePath);
             }
 
-            if (!UserAccepts($"Copying from\n{currentPath}\nTo\n{path}\nIs this correct? (Y/N) ")) return false;
-            if (Directory.EnumerateFileSystemEntries(path).Any(file => file != null))
+            if (!UserAccepts($"Copying from\n{workspacePath}\nTo\n{releasePath}\nIs this correct? (Y/N) ")) return false;
+            if (Directory.EnumerateFileSystemEntries(releasePath).Any(file => file != null))
             {
                 if (!UserAccepts("Target path is not empty. Ok to delete files? (Y/N) ")) return false;
                 try
                 {
-                    if (Directory.Exists(path)) Directory.Delete(path, true);
+                    if (Directory.Exists(releasePath)) Directory.Delete(releasePath, true);
                 }
 #pragma warning disable 168
                 catch (Exception e)
@@ -481,14 +490,15 @@ namespace RimworldModReleaseTool
                 {
                     Console.WriteLine("Failed to delete. Directory. Forcing delete and relaunching.");
                     var process = Process.Start("C:\\Program Files\\LockHunter\\LockHunter.exe",
-                        "-sm -d " + "\"" + path + "\"");
+                        "-sm -d " + "\"" + releasePath + "\"");
                     while (process != null && !process.HasExited) process?.WaitForExit(Timeout.Infinite);
 //Process.Start(Assembly.GetExecutingAssembly().Location, "\"" + path + "\"");
+                    while (Directory.Exists(releasePath)) {}
 //Environment.Exit(0);
                 }
 
-                if (Directory.Exists(path)) Directory.Delete(path, true);
-                Directory.CreateDirectory(path);
+                if (Directory.Exists(releasePath)) Directory.Delete(releasePath, true);
+                Directory.CreateDirectory(releasePath);
                 Console.WriteLine("-------------------------------------\n" +
                                   "Purged target directory of all files.\n" +
                                   "-------------------------------------");
