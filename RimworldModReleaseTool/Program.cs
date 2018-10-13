@@ -329,8 +329,10 @@ namespace RimworldModReleaseTool
         {
             if (settings.HandleGitHub && UserAccepts("\nMake release on github? (Y/N) "))
             {
+                Console.WriteLine("Acquiring repository...");
                 var repo = GitHubUtility.GetGithubRepository(updateInfo, settings, updateInfo.GitRepoName,
                     updateInfo.GitRepoAuthor);
+                Console.WriteLine("Acquired repository: " + repo.Name + " by " + repo.Owner.Login);
                 var task = Task.Run(async () => await GitHubUtility.CreateRelease(updateInfo, repo, updateInfo.Version,
                     updateInfo.Title, updateInfo.Description));
                 task.Wait();
@@ -390,7 +392,7 @@ namespace RimworldModReleaseTool
                 var note = "";
                 Console.WriteLine("Add a note for the ZIP file or press ENTER to continue");
                 note = Console.ReadLine();
-                var path = targetPath + $"\\..\\{name}-{note}({info.Version})({info.PublishDateString}).zip";
+                var path = targetPath + $"\\..\\{name}-({note})({info.Version})({info.PublishDateString}).zip";
                 Console.WriteLine(path);
 
                 var dest = Path.GetFullPath(path);
@@ -488,13 +490,17 @@ namespace RimworldModReleaseTool
                 catch (Exception e)
 #pragma warning restore 168
                 {
-                    Console.WriteLine("Failed to delete. Directory. Forcing delete and relaunching.");
-                    var process = Process.Start("C:\\Program Files\\LockHunter\\LockHunter.exe",
-                        "-sm -d " + "\"" + releasePath + "\"");
-                    while (process != null && !process.HasExited) process?.WaitForExit(Timeout.Infinite);
+                    var lockhunterPath = "C:\\Program Files\\LockHunter\\LockHunter.exe";
+                    if (File.Exists(lockhunterPath))
+                    {
+                        Console.WriteLine("Failed to delete. Lock hunter detected. Attempting forced deletion...");
+                        var process = Process.Start(lockhunterPath,
+                            "-sm -d " + "\"" + releasePath + "\"");
+                        while (process != null && !process.HasExited) process?.WaitForExit(Timeout.Infinite);
 //Process.Start(Assembly.GetExecutingAssembly().Location, "\"" + path + "\"");
-                    while (Directory.Exists(releasePath)) {}
-//Environment.Exit(0);
+                        while (Directory.Exists(releasePath)) {}
+//Environment.Exit(0);   
+                    }
                 }
 
                 if (Directory.Exists(releasePath)) Directory.Delete(releasePath, true);
@@ -566,13 +572,7 @@ namespace RimworldModReleaseTool
             input = ' ';
             while (input != 'y' && input != 'n') input = char.ToLower(Console.ReadKey().KeyChar);
             Console.WriteLine();
-            if (input == 'y')
-            {
-                Console.WriteLine("\n");
-                return true;
-            }
-
-            return false;
+            return input == 'y';
         }
     }
 }

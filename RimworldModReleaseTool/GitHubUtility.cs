@@ -46,13 +46,18 @@ namespace RimworldModReleaseTool
             {
                 // this changes from the user folder that PowerShell starts up with to your git repository
                 powershell.AddScript(string.Format("cd \"{0}\"", workingDirectory));
+                Console.WriteLine(string.Format("cd \"{0}\"", workingDirectory));
                 powershell.AddScript(@"git init");
+                Console.WriteLine("git init");
                 powershell.AddScript(@"git add *");
+                Console.WriteLine("git add *");
                 powershell.AddScript(@"git commit -m 'git commit from PowerShell in C#" + info + "'");
+                Console.WriteLine(@"git commit -m 'git commit from PowerShell in C#" + info + "'");
                 powershell.AddScript(@"git push origin master");
+                Console.WriteLine(@"git push origin master");
                 var results = powershell.Invoke();
                 foreach (var invoke in results)
-                    Console.WriteLine(invoke.ToString());                    
+                    Console.WriteLine(invoke. ToString());                    
             }
         }
 

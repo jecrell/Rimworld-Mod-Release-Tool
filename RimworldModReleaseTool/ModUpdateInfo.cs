@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net.Configuration;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
@@ -43,7 +44,8 @@ namespace RimworldModReleaseTool
                 }
             }
 
-            ///// Get the Patreon URL
+            ///// Get the Patreon URL, Patron info, and Patrons message
+            List<string> patrons = new List<string>();
             if (settings.HandlePatreon)
             {
                 var patreonPath = Path + @"\About\PatreonURL.txt";
@@ -61,6 +63,38 @@ namespace RimworldModReleaseTool
                 else
                 {
                     PatreonURL = File.ReadLines(patreonPath).First();
+                }
+                
+                if (File.Exists(settings.PatronsFilePath))
+                {
+                    var lines = File.ReadLines(settings.PatronsFilePath).Skip(1);
+                    var activeOnly = lines.ToList().FindAll(x=>x.Split(',')[3] == "Active patron");
+                    var sorted = activeOnly.Select(line =>
+                        {
+                            var s = line.Split(',')[5];
+                            //Console.WriteLine(s);
+                            var replace = s.Replace("$", "").Replace("\"", "");
+                            //Console.WriteLine(replace);
+                            return new
+                            {
+                                SortKey = float.Parse(replace),
+                                Line = line
+                            };
+                        })
+                        .OrderBy(x => x.SortKey)
+                        .Select(x => x.Line);
+                    
+                    foreach (var line in sorted)
+                    {
+                        var newLine = line.Split(',').FirstOrDefault();
+                        patrons.Add(newLine);
+                    }
+                    Console.WriteLine("Patreons: ");
+                    Console.WriteLine(String.Join(", ", patrons) + "\n");
+                }
+                else
+                {
+                    Console.WriteLine("Patrons file not found.");
                 }
             }
 
@@ -212,6 +246,27 @@ namespace RimworldModReleaseTool
                 Version = RimWorldVer + '.' + daysSinceStarted;
             }
 
+            var changelogPath = workspacePath + @"\About\Changelog.txt";
+            if (settings.autoGenerateChangelog)
+            {
+                ///// Generate a mod description
+                var updateContents = new string[]{Version + " (" + PublishDateString + ")", "========================", Description, ""};
+                if (!File.Exists(changelogPath))
+                {
+                    if (Program.UserAccepts("Changelog file not detected. Create new one? (Y/N): "))
+                    {
+                        File.WriteAllLines(changelogPath, updateContents);
+                    }
+                }
+                else
+                {
+                    var lines = new List<string>(updateContents);
+                    foreach (var line in File.ReadAllLines(changelogPath))
+                        lines.Add(line);
+                    File.WriteAllLines(changelogPath, lines.ToArray());
+                }
+            }
+
 
             ///// Generate a mod description
             var descriptionPath = workspacePath + @"\About\Description.txt";
@@ -232,7 +287,14 @@ namespace RimworldModReleaseTool
                 var aboutXMLPath = workspacePath + @"\About\About.xml";
                 var aboutXMLPathTarget = targetPath + @"\About\About.xml";
                 XmlDocument doc;
-                var newDescription = Version + "\n\n" + File.ReadAllText(descriptionPath);
+                var newDescription = Version + " (" + this.PublishDateString + ")" + "\n\n" + File.ReadAllText(descriptionPath);
+                if (!String.IsNullOrEmpty(settings.PatronsFilePath))
+                {
+                    newDescription = newDescription + "\n\n" + settings.PatronsMessage + "\n";
+                    newDescription = newDescription + "\nThese are the most excellent rim dwellers who support me: \n" + String.Join(", ", patrons);
+                }
+                if (settings.autoGenerateChangelog && File.Exists(changelogPath))
+                    newDescription = newDescription + "\n\n========================\nChangelog\n========================\n" + File.ReadAllText(changelogPath);
                 using (XmlTextReader reader = new XmlTextReader(aboutXMLPath))
                 {
                     doc = new XmlDocument();
