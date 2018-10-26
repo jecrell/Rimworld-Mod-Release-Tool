@@ -20,10 +20,10 @@ This program does the following.
 
 ## How to use this command line:
 <<Make sure you create a workspace folder for your mod outside of the RimWorld/Mods directory. This will be your mod workspace where you can keep your source code excluded from your published mod.>>
-1. Place this program and Octokit.dll in your workspace directory.
-2. Pass the target mod directory as your argument on the command line.
+1. Place this program and Octokit.dll anywhere.
+2. Pass the base mod directory and target mod directory as your argument on the command line.
   e.g.
-  ``````RimworldModReleaseTool.exe "C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Call-of-Cthulhu---Cosmic-Horrors"```
+  ``````RimworldModReleaseTool.exe "C:\Program Files (x86)\Steam\steamapps\common\RimWorld\ModsWorkspace\Call-of-Cthulhu---Cosmic-Horrors" "C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Call-of-Cthulhu---Cosmic-Horrors"```
 3. Follow the instructions on screen.
 
 Note: This release tool was originally started by Samboy from @SamboyCoding to delete a mod directory and replace it with a workspace directory without extra fluff. I've since added more changes to automate my coding process in RimWorld to make things easier on myself. Hopefully, you will find RimWorld easier to mod as well.
