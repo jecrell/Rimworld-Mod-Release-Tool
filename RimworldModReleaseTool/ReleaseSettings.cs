@@ -6,6 +6,9 @@ namespace RimworldModReleaseTool
     public class ReleaseSettings
     {
 
+        [XmlElement(ElementName = "targetVersion")]
+        public string TargetVersion { get; set; }
+
         [XmlElement(ElementName = "handleGitHub")]
         public bool HandleGitHub { get; set; }
 

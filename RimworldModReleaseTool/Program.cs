@@ -48,7 +48,6 @@ namespace RimworldModReleaseTool
 
             var workspacePath = ResolvePathForWorkspace(args);
             var releasePath = ResolvePathForRelease(args);
-
             var curDirName = workspacePath.Split(Path.DirectorySeparatorChar).Last();
             ////////////////////////////////////////
             /// Automating the RimWorld Dev Process
@@ -70,8 +69,7 @@ namespace RimworldModReleaseTool
             /////////////////////////////
             /// Publishing
             //1. Update GitHub
-            GitHubCommitRequest(settings, updateInfo);
-            GitHubReleaseRequest(settings, updateInfo);
+            GitHubCommitAndReleaseRequest(settings, updateInfo);
             //2. Update Patreon
             //PatreonPostRequest(settings, updateInfo); //TODO
             ZipFilesRequest(releasePath, updateInfo, settings.FilteredWhenZipped.ClearWhiteSpace().Split(','));
@@ -316,19 +314,20 @@ namespace RimworldModReleaseTool
         private static string UpdateReport(ModUpdateInfo updateInfo)
         {
             var s = new StringBuilder();
-            s.AppendLine(updateInfo.Name + " Update");
+            s.AppendLine(updateInfo.Name + " Update"); 
+            s.AppendLine("v" + updateInfo.Version + " (" + updateInfo.PublishDateString + ")");
             s.AppendLine("====================");
-            s.AppendLine("Version: " + updateInfo.Version);
-            s.AppendLine("Updated: " + updateInfo.PublishDateString);
-            s.AppendLine("Description: " + updateInfo.Description);
-            s.AppendLine("====================");
+            s.AppendLine();
+            s.AppendLine(updateInfo.Description);
+            s.AppendLine("--------------------");
             return s.ToString();
         }
 
-        private static void GitHubReleaseRequest(ReleaseSettings settings, ModUpdateInfo updateInfo)
+        private static void GitHubCommitAndReleaseRequest(ReleaseSettings settings, ModUpdateInfo updateInfo)
         {
-            if (settings.HandleGitHub && UserAccepts("\nMake release on github? (Y/N) "))
+            if (settings.HandleGitHub && UserAccepts("\nCommit and post release on GitHub? (Y/N) "))
             {
+                GitHubUtility.RunGitProcessWithArgs(updateInfo.Path, updateInfo.Description);
                 Console.WriteLine("Acquiring repository...");
                 var repo = GitHubUtility.GetGithubRepository(updateInfo, settings, updateInfo.GitRepoName,
                     updateInfo.GitRepoAuthor);
@@ -339,12 +338,6 @@ namespace RimworldModReleaseTool
                 var result = task.Result;
                 Console.WriteLine("Created release id {0}", result.Id);
             }
-        }
-
-        private static void GitHubCommitRequest(ReleaseSettings settings, ModUpdateInfo updateInfo)
-        {
-            if (settings.HandleGitHub && UserAccepts("\nPush to github with commit? (Y/N) "))
-                GitHubUtility.RunGitProcessWithArgs(updateInfo.Path, updateInfo.Name + " " + updateInfo.Description);
         }
 
         private static void RestartRimWorldRequest()
@@ -390,8 +383,8 @@ namespace RimworldModReleaseTool
             {
                 var name = info.Path.Substring(info.Path.LastIndexOf("\\", StringComparison.Ordinal) + 1);
                 var note = "";
-                Console.WriteLine("Add a note for the ZIP file or press ENTER to continue");
-                note = Console.ReadLine();
+                //Console.WriteLine("Add a note for the ZIP file or press ENTER to continue");
+                note = info.ZipTitle; //Console.ReadLine();
                 var path = targetPath + $"\\..\\{name}-({note})({info.Version})({info.PublishDateString}).zip";
                 Console.WriteLine(path);
 

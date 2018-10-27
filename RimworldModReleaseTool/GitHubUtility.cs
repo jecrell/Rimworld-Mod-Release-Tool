@@ -51,8 +51,8 @@ namespace RimworldModReleaseTool
                 Console.WriteLine("git init");
                 powershell.AddScript(@"git add *");
                 Console.WriteLine("git add *");
-                powershell.AddScript(@"git commit -m 'git commit from PowerShell in C#" + info + "'");
-                Console.WriteLine(@"git commit -m 'git commit from PowerShell in C#" + info + "'");
+                powershell.AddScript(@"git commit -m '" + info + "(via RimWorld Mod Release Tool)'");
+                Console.WriteLine(@"git commit -m '" + info + "(via RimWorld Mod Release Tool)'");
                 powershell.AddScript(@"git push origin master");
                 Console.WriteLine(@"git push origin master");
                 var results = powershell.Invoke();

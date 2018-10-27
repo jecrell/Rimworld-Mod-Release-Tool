@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ReleaseSettings>
+    <targetVersion>1.0.2059</targetVersion>
     <handleGitHub>true</handleGitHub>
     <handleLudeon>true</handleLudeon>
     <handleSteam>true</handleSteam>

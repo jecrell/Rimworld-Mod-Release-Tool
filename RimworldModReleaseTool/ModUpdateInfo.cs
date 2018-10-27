@@ -14,19 +14,22 @@ namespace RimworldModReleaseTool
 {
     public class ModUpdateInfo
     {
-        private static readonly string RimWorldVer = "B19";
         private static readonly DateTime FirstPublishDate = new DateTime(2016, 12, 11);
 
         private readonly string title;
 
+        public static string RemoveSpecialCharacters(string str)
+        {
+            return Regex.Replace(str, "[^a-zA-Z0-9_.]+", "", RegexOptions.Compiled);
+        }
+        
         public ModUpdateInfo(ReleaseSettings settings, string workspacePath, string targetPath)
         {
             Path = workspacePath;
 
             ///// Get the update title
             Console.Write("\nPlease enter a title for your update/release or Press ENTER to continue : ");
-            title = "";
-            title = Console.ReadLine();
+            title = RemoveSpecialCharacters(Console.ReadLine());
             ///// Get the update description
             Console.Write("\nPlease enter a description for your update/release or Press ENTER to continue : ");
             Description = "";
@@ -195,6 +198,11 @@ namespace RimworldModReleaseTool
             ///// Ask or autoset a version number
             var versionPath = workspacePath + @"\About\Version.txt";
             var versionPathTwo = targetPath + @"\About\Version.txt";
+            
+            
+            var manifestXMLPath = workspacePath + @"\About\Manifest.xml";
+            var manifestXMLPathTarget = targetPath + @"\About\Manifest.xml";
+                
             if (settings.AskForVersionNum)
             {
                 if (!File.Exists(versionPath))
@@ -210,7 +218,7 @@ namespace RimworldModReleaseTool
                             if (input == "")
                             {
                                 var daysSinceStarted = (DateTime.Now - FirstPublishDate).Days;
-                                Version = RimWorldVer + '.' + daysSinceStarted;
+                                Version = settings.TargetVersion + '.' + daysSinceStarted;
                                 break;
                             }
 
@@ -232,7 +240,7 @@ namespace RimworldModReleaseTool
                     if (Version == "")
                     {
                         var daysSinceStarted = (DateTime.Now - FirstPublishDate).Days;
-                        Version = RimWorldVer + '.' + daysSinceStarted;
+                        Version = settings.TargetVersion + '.' + daysSinceStarted;
                     }
 
                     Console.WriteLine("Set version to: " + Version);
@@ -243,9 +251,25 @@ namespace RimworldModReleaseTool
             else
             {
                 var daysSinceStarted = (DateTime.Now - FirstPublishDate).Days;
-                Version = RimWorldVer + '.' + daysSinceStarted;
+                Version = settings.TargetVersion + '.' + daysSinceStarted;
             }
 
+            //Adjust the version number in Manifest.xml (if it exists)
+            if (File.Exists(manifestXMLPath))
+            {
+                XmlDocument doc;
+                using (XmlTextReader reader = new XmlTextReader(manifestXMLPath))
+                {
+                    doc = new XmlDocument();
+                    doc.Load(reader);
+                    doc.SelectSingleNode("Manifest/version").InnerText =
+                        Version;
+                }
+                doc.Save(manifestXMLPath);
+                File.Delete(manifestXMLPathTarget);
+                File.Copy(manifestXMLPath, manifestXMLPathTarget);   
+            }
+            
             var changelogPath = workspacePath + @"\About\Changelog.txt";
             if (settings.autoGenerateChangelog)
             {
@@ -295,12 +319,15 @@ namespace RimworldModReleaseTool
                 }
                 if (settings.autoGenerateChangelog && File.Exists(changelogPath))
                     newDescription = newDescription + "\n\n========================\nChangelog\n========================\n" + File.ReadAllText(changelogPath);
+                //Adjust the version number in the about.xml
                 using (XmlTextReader reader = new XmlTextReader(aboutXMLPath))
                 {
                     doc = new XmlDocument();
                     doc.Load(reader); //Assuming reader is your XmlReader
                     doc.SelectSingleNode("ModMetaData/description").InnerText =
                         newDescription;
+                    doc.SelectSingleNode("ModMetaData/targetVersion").InnerText =
+                        settings.TargetVersion;
                 }
                 doc.Save(aboutXMLPath);
                 File.Delete(aboutXMLPathTarget);
@@ -389,6 +416,9 @@ namespace RimworldModReleaseTool
         public string Name { get; }
 
         public string Title => Name + " - " + title;
+
+        public string ZipTitle => title;
+        
         public string Team { get; }
 
         public DateTime PublishDate { get; } = DateTime.Now;
