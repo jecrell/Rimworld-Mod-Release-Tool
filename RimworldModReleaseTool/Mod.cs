@@ -33,14 +33,26 @@ namespace RimworldModReleaseTool
                     for (var j = 0; j < node.ChildNodes.Count; j++)
                     {
                         var meta = node.ChildNodes[j];
-                        if (meta.Name.ToLower() == "name")
-                            Name = meta.InnerText;
-                        if (meta.Name.ToLower() == "description")
-                            Description = meta.InnerText;
-                        if (meta.Name.ToLower() == "targetversion")
+                        switch (meta.Name.ToLower())
                         {
-                            var version = VersionFromString(meta.InnerText);
-                            Tags.Add(version.Major + "." + version.Minor);
+                            case "name":
+                                Name = meta.InnerText;
+                                break;
+                            case "description":
+                                Description = meta.InnerText;
+                                break;
+                            case "targetversion":
+                            {
+                                var version = VersionFromString(meta.InnerText);
+                                Tags.Add(version.Major + "." + version.Minor);
+                                break;
+                            }
+                            case "supportedversions":
+                            {
+                                foreach (XmlNode li in meta.SelectNodes("li"))
+                                    Tags.Add(li.InnerText);
+                                break;
+                            }
                         }
                     }
             }
